@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MGJQ3XXP6"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-7MGJQ3XXP6');
+	</script>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description"
+		content="Explore deep-dive tech blogs on AI, ML, Python, and Arduino. We turn complex data into real-world knowledge to satisfy your curiosity. Stay ahead in tech!">
+	<title>CoreTech | Expert Technology Researches, News & 2026 Trends</title>
+</head>
+<style>
+	:root {
+		--primary: #111111;
+		--accent: #0070f3;
+		--text-main: #111;
+		--text-muted: #666;
+		--bg: #fff;
+		--border: #eaeaea;
+	}
+
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+		background: var(--bg);
+		color: var(--text-main);
+		line-height: 1.6;
+	}
+
+	/* Navbar */
+	nav {
+		padding: 1.5rem 5%;
+		border-bottom: 1px solid var(--border);
+		position: sticky;
+		top: 0;
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(10px);
+		z-index: 100;
+	}
+
+	.nav-cont {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		list-style: none;
+	}
+
+	.mini-nav-cont {
+		display: flex;
+		gap: 2rem;
+		list-style: none;
+	}
+
+	.mini-nav-items {
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: var(--text-muted);
+		cursor: pointer;
+		transition: 0.2s;
+	}
+
+	.mini-nav-items:hover {
+		color: var(--primary);
+	}
+
+	/* Header */
+	header {
+		padding: 8rem 5% 5rem;
+		max-width: 1000px;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		letter-spacing: -0.05em;
+		line-height: 1.1;
+		font-weight: 800;
+		margin-bottom: 1.5rem;
+	}
+
+	.intro-text {
+		font-size: 1.25rem;
+		color: var(--text-muted);
+		max-width: 750px;
+		margin-bottom: 2.5rem;
+	}
+
+	.go-to-blogs {
+		background: var(--primary);
+		color: white;
+		border: none;
+		padding: 0.8rem 1.8rem;
+		font-weight: 600;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+	}
+
+	.go-to-blogs:hover {
+		background: var(--accent);
+		transform: translateY(-2px);
+	}
+
+	/* Main Content Layout */
+	main {
+		padding: 4rem 5%;
+	}
+
+	/* Card Container - FLEX WRAP ENABLED */
+	.blogs,
+	.researches {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		margin: 2rem 0;
+	}
+
+	h2 {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: var(--text-muted);
+		border-bottom: 1px solid var(--border);
+		padding-bottom: 0.5rem;
+		margin-bottom: 3rem;
+	}
+
+	h3 {
+		font-size: 1.8rem;
+		letter-spacing: -0.02em;
+		margin-bottom: 1rem;
+	}
+
+	section {
+		margin-bottom: 5rem;
+	}
+
+	/* Blog Card Styling */
+	.blog-card {
+		flex: 1 1 calc(33.333% - 2rem);
+		/* 3 columns on desktop */
+		min-width: 300px;
+		/* Prevents cards from getting too skinny */
+		display: flex;
+		flex-direction: column;
+		background: #fff;
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: all 0.3s ease;
+	}
+
+	.blog-card:hover {
+		border-color: var(--accent);
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	}
+
+	/* Big Clear Image Styling */
+	.img-container {
+		width: 100%;
+		height: 250px;
+		/* Big, clear height */
+		overflow: hidden;
+		background: #f4f4f4;
+	}
+
+	.blog-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.blog-card:hover .blog-img {
+		transform: scale(1.1);
+		/* Zoom effect */
+	}
+
+	.blog-content {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+
+	.blog-description {
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		margin: 1rem 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* Links */
+	a {
+		color: var(--accent);
+		text-decoration: none;
+		font-size: 0.95rem;
+		font-weight: 600;
+		transition: 0.2s;
+	}
+
+	a:hover {
+		opacity: 0.8;
+	}
+
+	/* Footer */
+	footer {
+		padding: 4rem 5%;
+		border-top: 1px solid var(--border);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 2rem;
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.blog-card {
+			flex: 1 1 calc(50% - 2rem);
+		}
+
+		/* 2 columns on tablets */
+	}
+
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 2.5rem;
+		}
+
+		.mini-nav-cont {
+			display: none;
+		}
+
+		.blog-card {
+			flex: 1 1 100%;
+		}
+
+		/* 1 column on mobile */
+	}
+
+	/* Card Container - Improved spacing */
+	.blogs,
+	.researches {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2.5rem;
+		/* Increased gap for a cleaner look */
+		margin: 2rem 0;
+	}
+
+	/* Blog Card Styling - Optimized for size */
+	.blog-card {
+		flex: 0 1 calc(33.333% - 2.5rem);
+		/* Changed to 0 1 to prevent stretching */
+		max-width: 380px;
+		/* Limits the width so it stays neat */
+		min-width: 300px;
+		display: flex;
+		flex-direction: column;
+		background: #fff;
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		/* Slightly sharper radius for a tech feel */
+		overflow: hidden;
+		transition: all 0.3s ease;
+	}
+
+	/* Rationalized Image Size */
+	.img-container {
+		width: 100%;
+		height: 200px;
+		/* Reduced from 250px for better proportions */
+		overflow: hidden;
+		background: #f4f4f4;
+	}
+
+	.blog-content {
+		padding: 1.25rem;
+		/* Slightly tighter padding */
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+
+	/* Ensure Titles don't take too much space */
+	.blog-card h4 {
+		margin: 0.5rem 0;
+		font-size: 1.3rem;
+		/* Slightly smaller for better fit */
+		line-height: 1.3;
+		font-weight: 700;
+	}
+
+	.blog-description {
+		color: var(--text-muted);
+		font-size: 0.9rem;
+		/* Smaller font for a cleaner look */
+		margin: 0.5rem 0 1.25rem 0;
+		line-height: 1.5;
+		/* Keeps it to 3 lines instead of 4 for a tighter card */
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>
+
+
+<body>
+	<nav>
+		<ul class="nav-cont" id="nav-cont">
+			<li class="nav-items" id="nav-item-1"><img src="" alt="logo"></li>
+			<li class="nav-items" id="nav-item-2">
+				<ul class="mini-nav-cont">
+					<a href="index.html">
+						<li class="mini-nav-items" id="mini-nav-item-1">Home</li>
+					</a>
+					<a href="blogs.html">
+						<li class="mini-nav-items" id="mini-nav-item-2">Blogs</li>
+					</a>
+					<a href="researches.html">
+						<li class="mini-nav-items" id="mini-nav-item-3">Researches</li>
+					</a>
+					<a href="contact.html">
+						<li class="mini-nav-items" id="mini-nav-item-4">Contact</li>
+					</a>
+					<a href="about.html">
+						<li class="mini-nav-items" id="mini-nav-item-5">About</li>
+					</a>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	<header>
+		<h1>Satisfy Your Curiosity with Cool Tech Blogs and Innovative Researches</h1>
+		<div class="intro-text">Feed your curiosity with tech blogs that actually dig deep.We hunt down the latest data
+			to turn complex research into the real-world knowledge you have been looking for—covering everything from
+			AI,
+			ML, and Python to exactly how code runs in an Arduino, All that cool stuff.</div>
+		<button class="go-to-blogs">Check Out The Blogs</button>
+	</header>
+	<main>
+		<h2>Categories We Serve</h2>
+		<section class="blogs-section">
+			<h3>Blogs - Inner Workings Of Modern Tech</h3>
+			<section class="blogs">
+			</section>
+			<b><a href="blogs.html">Explore All Tech Deep Dives</a></b>
+		</section>
+		<section class="researches-section">
+			<section class="researches-section">
+				<h3>Researches - Tech Lab Silly Experiments that Reveal Serious Insights</h3>
+				<section class="researches">
+				</section>
+			</section>
+			<b><a href="blogs.html">Explore All Tech Deep Dives</a></b>
+		</section>
+
+	</main>
+	<footer>
+		<section class="intro-to-coretech"></section>
+		<section class="web-links"></section>
+		<section class="contact-info"></section>
+		<section class="social-links"></section>
+	</footer>
+	<script>
+		// Helper function to strip HTML tags for the card preview
+		function stripHTML(html) {
+			return html.replace(/<[^>]*>?/gm, '');
+		}
+
+		function generateBlogSchema(items) {
+			items.forEach(item => {
+				const schema = {
+					"@context": "https://schema.org",
+					"@type": "TechArticle",
+					"headline": item.title,
+					"image": item.img || "https://unsplash.com",
+					"description": stripHTML(item.description),
+					"author": { "@type": "Organization", "name": "CoreTech" },
+					"publisher": {
+						"@type": "Organization",
+						"name": "CoreTech",
+						"logo": { "@type": "ImageObject", "url": "https://placeholder.com" }
+					},
+					"mainEntityOfPage": {
+						"@type": "WebPage",
+						// Dynamic URL construction for SEO
+						"@id": `${window.location.origin}/post.html?id=${item.id}`
+					}
+				};
+				const script = document.createElement('script');
+				script.type = 'application/ld+json';
+				script.text = JSON.stringify(schema);
+				document.head.appendChild(script);
+			});
+		}
+
+		async function loadContent(fileName, containerSelector, isExperiment = false) {
+			const container = document.querySelector(containerSelector);
+			if (!container) return;
+
+			try {
+				const response = await fetch(fileName);
+				if (!response.ok) throw new Error(`${fileName} fetch failed`);
+				const data = await response.json();
+
+				container.innerHTML = data.map(item => {
+					// AUTOMATIC LINK GENERATION
+					// This creates the link using the ID from your JSON
+					const dynamicLink = `post.html?id=${item.id}`;
+
+					return `
+                <article class="blog-card">
+                    <div class="img-container">
+                        <img src="${item.img || 'https://unsplash.com'}" 
+                             alt="${item.title}" class="blog-img">
+                    </div>
+                    <div class="blog-content">
+                        <span class="category" style="font-size: 0.7rem; text-transform: uppercase; color: #0070f3; font-weight: 700;">
+                            ${item.category}
+                        </span>
+                        <h4 style="margin: 0.5rem 0; font-size: 1.3rem; line-height: 1.3; font-weight: 700;">
+                            ${item.title}
+                        </h4>
+                        <p class="blog-description" style="color: #666; font-size: 0.9rem;">
+                            ${stripHTML(item.description)}
+                        </p>
+                        <a href="${dynamicLink}" style="font-weight: 600; color: #000; font-size: 0.85rem; margin-top: auto; text-decoration: none;">
+                            ${isExperiment ? 'Read In Detail' : 'Read Deep Dive'} &rarr;
+                        </a>
+                    </div>
+                </article>
+            `}).join('');
+
+				generateBlogSchema(data);
+			} catch (error) {
+				console.error('CoreTech Error:', error);
+				container.innerHTML = `<p style="padding:1rem; color:#999; font-size:0.8rem;">[SYSTEM ERROR] Failed to initialize ${fileName}</p>`;
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			loadContent('blogs.json', '.blogs');
+			loadContent('researches.json', '.researches', true);
+		});
+	</script>
+
+</body>
+
+</html>
