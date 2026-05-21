@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -383,4 +384,423 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MGJQ3XXP6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7MGJQ3XXP6');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Actual Code Runs in Arduino | CoreTech</title>
+
+    <style>
+        :root {
+            --header: #0a2540;
+            --accent: #e60000;
+            --text: #222;
+            --muted: #555;
+            --border: #ddd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #fff;
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        header.top {
+            background: var(--header);
+            color: white;
+            padding: 0.75rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #00ccff;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 1.8rem;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 100px auto 4rem;
+            padding: 0 5%;
+        }
+
+        .category {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            line-height: 1.15;
+            margin: 1.2rem 0 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .article-meta {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-body {
+            font-size: 1.22rem;
+            line-height: 1.85;
+            color: #222;
+        }
+
+        .article-body pre {
+            background: #f4f4f4;
+            padding: 1.2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: 'Courier New', monospace;
+            margin: 1.5rem 0;
+        }
+
+        .faq-box {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: #f9f9f9;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item[open] .faq-question {
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #444;
+            line-height: 1.75;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 3rem;
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: #aaa;
+            padding: 4rem 5% 2.5rem;
+            margin-top: 5rem;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(230, 0, 0, 0.4);
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Fixed Navbar -->
+    <header class="top">
+        <a href="index.html" class="logo">CORE<span>TECH</span></a>
+        <div class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="blogs.html">Blogs</a>
+            <a href="experiments.html">Experiments</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </header>
+
+    <main id="post-container">
+        <article class="article-body" style="padding-top: 2rem;">
+            <span class="category" style="color: var(--accent); font-weight: 700;">CODING</span>
+            <div class="article-meta" style="color:var(--muted); margin-bottom:1rem;">Published by CoreTech • 2026</div>
+            <img src="data:image/jpeg;base64,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" alt="How Actual Code Runs in Arduino" class="featured-img" style="width:100%; max-height:480px; object-fit:cover; border-radius:12px; margin-bottom:2rem;">
+            <div class="article-content-render">
+                <h1>How Actual Code Runs in Arduino: Inside the AVR Architecture</h1><p>Ever wondered how your human-readable text transforms into physical electrical signals? This deep technical breakdown explores the precise mechanics of compilation, flash memory management, and binary execution inside microcontrollers like the ATmega328P.</p><h2>1. Compilation: From High-Level C++ to Binary Machine Code</h2><p>Arduino code is written in a simplified dialect of <strong>C++</strong>. Before the microcontroller can understand it, the code must undergo a strict transformation process to become low-level hardware instructions.</p><ul><li><strong>The avr-gcc Toolchain:</strong> When you click the <strong>Upload</strong> button, the Arduino IDE calls the <code>avr-gcc</code> compiler to translate text-based sketches into assembly instructions.</li><li><strong>The Linking Stage:</strong> The compiler merges your custom code with core hardware libraries (like <code>wiring.c</code>) to resolve system dependencies.</li><li><strong>The HEX File Generation:</strong> The ultimate output of the compilation process is a <strong>.hex file</strong>, which contains the raw, hexadecimal representation of the machine code that the processor can natively execute.</li></ul><h2>2. Flash Memory Storage and the Bootloader Program</h2><p>Once the binary file is ready, it must be physically transferred into the onboard memory of the silicon chip.</p><h3>The Role of the Bootloader</h3><p>A small piece of pre-programmed software called a <strong>bootloader</strong> lives in a dedicated, protected section of the chip's non-volatile <strong>Flash Memory</strong>.</p><ul><li><strong>Serial Listening:</strong> Upon reset, the bootloader runs first, temporarily listening to the serial UART interface (USB connection) for incoming data payloads from your computer.</li><li><strong>Writing to Flash Memory:</strong> If the IDE transmits a new program, the bootloader interceptively writes those machine code instructions into the primary application partition of the Flash memory.</li><li><strong>Program Handoff:</strong> If no new data is detected after a brief timeout, the bootloader shifts the <strong>Program Counter (PC)</strong> to address <code>0x0000</code>, handing total control over to your sketch.</li></ul><h2>3. Deep Dive into the AVR Harvard Architecture</h2><p>Microcontrollers like the ATmega328P operate on a <strong>Harvard Architecture</strong>, a hardware design characterized by having physically separate storage and signal pathways for instructions and operational data.</p><h3>Microcontroller Memory Segmentation</h3><ol><li><strong>Flash Memory (32 KB):</strong> Non-volatile memory space where your compiled executable machine code permanently resides.</li><li><li><strong>SRAM (2 KB):</strong> Volatile Static Random-Access Memory used for dynamic variable storage, runtime function call stacks, and keeping track of transient execution data.</li><li><strong>EEPROM (1 KB):</strong> A small, non-volatile memory block used for saving permanent configuration variables that persist even when power is completely disconnected.</li></ol><h2>4. The Hardware Clock and Instruction Execution Loop</h2><p>The Central Processing Unit (CPU) does not read code line-by-line; it operates on a continuous hardware cycle driven by an external <strong>16 MHz crystal oscillator clock</strong>, providing a consistent pulse 16 million times per second.</p><h3>The Four-Step RISC CPU Cycle</h3><ul><li><strong>Fetch:</strong> The <strong>Program Counter (PC)</strong> register pulls the 16-bit binary instruction out from the precise Flash memory address it is currently pointing to.</li><li><strong>Decode:</strong> The instruction decoder breaks down the binary bits to determine the exact mathematical or operational action required (e.g., bitwise shifting or memory copying).</li><li><strong>Execute:</strong> The <strong>Arithmetic Logic Unit (ALU)</strong> processes the data. Because AVR utilizes a <strong>RISC (Reduced Instruction Set Computer)</strong> architecture, most instructions complete in a single clock cycle, hitting a performance peak close to <strong>16 MIPS (Million Instructions Per Second)</strong>.</li><li><strong>Advance:</strong> The Program Counter shifts forward to target the next sequential line of memory, restarting the hardware loop.</li></ul><h2>5. Abstracting main(), setup(), and loop()</h2><p>In standard software engineering, a C++ application must always initialize through a <code>main()</code> function. The Arduino framework hides this structure to simplify programming, but it still executes behind the scenes.</p><h3>The Native Core Setup Flow</h3><p>The hidden underlying script initializes hardware peripherals before calling your user functions:</p><pre><code>int main(void) { init(); setup(); for (;;) { loop(); if (serialEventRun) serialEventRun(); } return 0; }</code></pre><h3>Interfacing via Special Function Registers (SFRs)</h3><p>When writing a command like <code>digitalWrite(13, HIGH)</code>, the processor does not see "Pin 13". The binary instructions modify specific bits within <strong>Special Function Registers (SFRs)</strong> like <code>PORTB</code> or <code>DDRB</code>. These hardware registers are hardwired straight to physical transistors. Flipping a register bit from <code>0</code> to <code>1</code> activates an electronic switch, releasing a 5V electrical current directly through the physical copper leg of the microcontroller chip.</p>
+            </div>
+            
+	<div class="faq-box" style="margin-top:4rem;"><h2>Frequently Asked Questions</h2>
+        <details class="faq-item" style="margin: 1rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+            <summary class="faq-question" style="cursor:pointer; font-weight:700;">Is Arduino AVR based?</summary>
+            <div class="faq-answer" style="margin-top:0.5rem;"><p>The Arduino platform, developed for simple electronics projects, was released in 2005 and featured ATmega8 AVR microcontrollers.</p></div>
+        </details>
+        <details class="faq-item" style="margin: 1rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+            <summary class="faq-question" style="cursor:pointer; font-weight:700;">Can ChatGPT make Arduino code?</summary>
+            <div class="faq-answer" style="margin-top:0.5rem;"><p>The Arduino code generated by ChatGPT is not only functional, but it is also well-organized and includes helpful explanations</p></div>
+        </details>
+        <details class="faq-item" style="margin: 1rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+            <summary class="faq-question" style="cursor:pointer; font-weight:700;">How is an Arduino powered and how does it run code?</summary>
+            <div class="faq-answer" style="margin-top:0.5rem;"><p>The Arduino UNO can be powered from a USB cable coming from your computer or a wall power supply (like this) that is terminated in a barrel jack. In the picture above the USB connection is labeled (1) and the barrel jack is labeled (2). The USB connection is also how you will load code onto your Arduino board.</p></div>
+        </details>
+	</div>
+            <a href="index.html" class="back-link" style="display:inline-block; margin-top:3rem; color:var(--accent); text-decoration:none; font-weight:600;">← Back to Homepage</a>
+        </article>
+        </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3>CoreTech</h3>
+                <p>Independent tech platform delivering deep dives, experiments, and the latest breakthroughs in
+                    technology.</p>
+            </div>
+            <div>
+                <h3>Sections</h3>
+                <a href="blogs.html">Blogs & Deep Dives</a>
+                <a href="experiments.html">Hands-on Experiments</a>
+            </div>
+            <div>
+                <h3>Company</h3>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="backToTop" title="Back to Top">↑</div>
+
+    <script>
+        function stripHTML(html) {
+            return html.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
+        }
+
+        function getFullDescription(html) {
+            let text = stripHTML(html);
+            return text.length > 0 ? text : "Technology article by CoreTech";
+        }
+
+        function generatePostSchema(post) {
+            const schemas = [];
+
+            schemas.push({
+                "@context": "https://schema.org",
+                "@type": "TechArticle",
+                "headline": post.title,
+                "image": post.img,
+                "description": getFullDescription(post.description),
+                "author": { "@type": "Organization", "name": "CoreTech" },
+                "publisher": { "@type": "Organization", "name": "CoreTech" },
+                "mainEntityOfPage": { "@type": "WebPage", "@id": window.location.href },
+                "datePublished": new Date().toISOString(),
+                "keywords": [post.category || "technology", "programming", "arduino"]
+            });
+
+            const faqs = post.faqs || post.FAQ || [];
+            if (faqs.length > 0) {
+                schemas.push({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": faqs.map(faq => ({
+                        "@type": "Question",
+                        "name": faq.question || "",
+                        "acceptedAnswer": { "@type": "Answer", "text": stripHTML(faq.answer || "") }
+                    }))
+                });
+            }
+
+            schemas.forEach(schema => {
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.textContent = JSON.stringify(schema, null, 2);
+                document.head.appendChild(script);
+            });
+
+            console.log("✅ Schema Generated", schemas);
+        }
+
+        async function fetchPost() {
+            const container = document.getElementById('post-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+
+            if (!postId) {
+                container.innerHTML = `<div style="text-align:center; padding:100px;"><h1>Access Denied</h1><p>No post ID provided.</p><a href="index.html" class="back-link">← Return Home</a></div>`;
+                return;
+            }
+
+            try {
+                // Load BOTH files
+                const [blogsRes, researchesRes] = await Promise.all([
+                    fetch('blogs.json').catch(() => ({ json: () => [] })),
+                    fetch('researches.json').catch(() => ({ json: () => [] }))
+                ]);
+
+                const blogs = await blogsRes.json();
+                const researches = await researchesRes.json();
+
+                const allPosts = [...blogs, ...researches];
+                const post = allPosts.find(p => p.id === postId);
+
+                if (!post) {
+                    container.innerHTML = `<h1 style="text-align:center; padding:100px;">Post Not Found</h1>`;
+                    return;
+                }
+
+                document.title = `CoreTech | ${post.title}`;
+
+                const faqs = post.faqs || post.FAQ || [];
+                let faqHtml = '';
+                if (faqs.length > 0) {
+                    faqHtml = `
+                    <section class="faq-box">
+                        <h2>Frequently Asked Questions</h2>
+                        ${faqs.map(faq => `
+                            <details class="faq-item">
+                                <summary class="faq-question">${faq.question}</summary>
+                                <div class="faq-answer">${faq.answer}</div>
+                            </details>
+                        `).join('')}
+                    </section>`;
+                }
+
+                container.innerHTML = `
+                    <span class="category">${post.category || 'Technology'}</span>
+                    <div class="article-meta">CoreTech • May 2026</div>
+                    <img src="${post.img}" alt="${post.title}" class="featured-img">
+                    <article class="article-body">${post.description}</article>
+                    ${faqHtml}
+                    <a href="blogs.html" class="back-link">← Back to All Content</a>
+                `;
+
+                generatePostSchema(post);
+
+            } catch (e) {
+                console.error(e);
+                container.innerHTML = `<h1 style="text-align:center; padding:100px;">Failed to Load Post</h1>`;
+            }
+        }
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 600 ? 'flex' : 'none';
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchPost);
+    </script>
+</body>
+
+>>>>>>> 5810eac19b5e07ba96ead36c8588ca63b60d347e
 </html>
