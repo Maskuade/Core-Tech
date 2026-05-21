@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 User-agent: *
 Allow: /
 
 Sitemap: https://coretech.dpdns.org/sitemap.xml
+=======
+User-agent: *
+Allow: /
+
+Sitemap: https://coretech.dpdns.org/sitemap.xml
+>>>>>>> 5810eac19b5e07ba96ead36c8588ca63b60d347e

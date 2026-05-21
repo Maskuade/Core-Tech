@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
 
@@ -795,4 +796,468 @@
 
 </body>
 
+=======
+<!doctype html>
+<html lang="en">
+
+<head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-7MGJQ3XXP6"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-7MGJQ3XXP6');
+	</script>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description"
+		content="CoreTech - Explore advanced software engineering, Arduino code experiments, and tech systems from the Stone Age to the AI era. Discover how humans shape modern technologies!">
+	<title>CoreTech | Where Code Meets Chaos and Childhood Dreams</title>
+
+	<style>
+		:root {
+			--header: #0a2540;
+			--accent: #e60000;
+			--text: #222;
+			--muted: #555;
+			--border: #ddd;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+			background: #fff;
+			color: var(--text);
+			line-height: 1.6;
+		}
+
+		/* Fixed Navbar */
+		header.top {
+			background: var(--header);
+			color: white;
+			padding: 0.75rem 5%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 1rem;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.logo {
+			font-size: 1.9rem;
+			font-weight: 800;
+			letter-spacing: -0.05em;
+			color: white;
+			text-decoration: none;
+		}
+
+		.logo span {
+			color: #00ccff;
+		}
+
+		.main-nav {
+			display: flex;
+			gap: 1.8rem;
+			flex-wrap: wrap;
+		}
+
+		.main-nav a {
+			color: white;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.97rem;
+		}
+
+		.main-nav a:hover {
+			color: var(--accent);
+		}
+
+		/* Search Bar */
+		.search-container {
+			position: relative;
+		}
+
+		#searchInput {
+			padding: 0.7rem 1rem;
+			width: 260px;
+			border-radius: 6px;
+			border: 1px solid #666;
+			background: rgba(255, 255, 255, 0.95);
+			font-size: 1rem;
+			transition: all 0.3s;
+		}
+
+		#searchInput:focus {
+			width: 320px;
+			outline: none;
+			border-color: var(--accent);
+			box-shadow: 0 0 0 3px rgba(230, 0, 0, 0.2);
+		}
+
+		/* Featured & Main Content */
+		.featured {
+			background: #111;
+			color: white;
+			padding: 5.5rem 5% 4rem;
+			/* Extra top padding for fixed navbar */
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 3rem;
+			align-items: center;
+		}
+
+		.featured-img {
+			width: 100%;
+			height: 420px;
+			object-fit: cover;
+			border-radius: 8px;
+		}
+
+		.featured-content h1 {
+			font-size: 2.65rem;
+			line-height: 1.15;
+			margin-bottom: 1rem;
+		}
+
+		main {
+			max-width: 1400px;
+			margin: 2.5rem auto;
+			padding: 0 5%;
+			display: grid;
+			grid-template-columns: 2.3fr 1fr;
+			gap: 3rem;
+		}
+
+		.articles {
+			display: flex;
+			flex-direction: column;
+			gap: 2.2rem;
+		}
+
+		.article-card {
+			display: flex;
+			gap: 1.8rem;
+			border-bottom: 1px solid var(--border);
+			padding-bottom: 2rem;
+		}
+
+		.article-card:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+
+		.article-img {
+			width: 280px;
+			height: 170px;
+			object-fit: cover;
+			border-radius: 6px;
+			flex-shrink: 0;
+		}
+
+		.article-content h3 {
+			font-size: 1.4rem;
+			line-height: 1.35;
+			margin-bottom: 0.7rem;
+		}
+
+		.article-content p {
+			color: var(--muted);
+			font-size: 1.02rem;
+		}
+
+		.meta {
+			font-size: 0.85rem;
+			color: #777;
+			margin-top: 1rem;
+		}
+
+		/* Discover More Section */
+		.discover-more {
+			background: linear-gradient(135deg, #f8f9fa, #f1f3f5);
+			padding: 4rem 5%;
+			text-align: center;
+			border-top: 1px solid var(--border);
+		}
+
+		.discover-more h2 {
+			font-size: 2.2rem;
+			margin-bottom: 1rem;
+			color: var(--text);
+		}
+
+		.discover-more p {
+			max-width: 600px;
+			margin: 0 auto 2.5rem;
+			font-size: 1.15rem;
+			color: var(--muted);
+		}
+
+		.explore-btn {
+			background: var(--accent);
+			color: white;
+			padding: 1.1rem 3rem;
+			font-size: 1.1rem;
+			font-weight: 600;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+			box-shadow: 0 8px 25px rgba(230, 0, 0, 0.25);
+		}
+
+		.explore-btn:hover {
+			transform: translateY(-5px) scale(1.05);
+			box-shadow: 0 15px 35px rgba(230, 0, 0, 0.35);
+		}
+
+		/* Footer */
+		footer {
+			background: #0a0a0a;
+			color: #aaa;
+			padding: 4rem 5% 2.5rem;
+		}
+
+		.footer-grid {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 3rem;
+		}
+
+		footer h3 {
+			color: white;
+			margin-bottom: 1.2rem;
+			font-size: 1.1rem;
+		}
+
+		footer a {
+			color: #aaa;
+			text-decoration: none;
+			display: block;
+			margin-bottom: 0.6rem;
+		}
+
+		footer a:hover {
+			color: white;
+		}
+
+		/* Back to Top */
+		#backToTop {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			background: var(--accent);
+			color: white;
+			width: 52px;
+			height: 52px;
+			border-radius: 50%;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5rem;
+			cursor: pointer;
+			box-shadow: 0 5px 20px rgba(230, 0, 0, 0.4);
+			z-index: 1000;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Fixed Navbar -->
+	<header class="top">
+		<a href="index.html" class="logo">CORE<span>TECH</span></a>
+
+		<div class="main-nav">
+			<a href="index.html">Home</a>
+			<a href="blogs.html">Blogs</a>
+			<a href="experiments.html">Experiments</a>
+			<a href="#">News</a>
+			<a href="contact.html">Contact</a>
+		</div>
+
+		<div class="search-container">
+			<input type="text" id="searchInput" placeholder="Search articles, experiments...">
+		</div>
+	</header>
+
+	<!-- Featured -->
+	<section class="featured">
+		<div class="featured-content">
+			<span style="color: var(--accent); font-weight: 700;">BREAKING • 2026</span>
+			<h1>Satisfy Your Curiosity with Cool Tech Blogs and Innovative Researches</h1>
+			<p>Feed your curiosity with tech blogs that actually dig deep.We hunt down the latest data to turn complex
+				research into the real-world knowledge you have been looking for—covering everything from AI, ML, and
+				Python to exactly how code runs in an Arduino, All that cool stuff.</p>
+			<a href=""
+				style="background: var(--accent); color: white; padding: 1rem 2.2rem; display: inline-block; border-radius: 6px; text-decoration: none; font-weight: 600;">Discover
+				More →</a>
+		</div>
+		<img src="https://picsum.photos/id/1015/800/600" alt="Featured" class="featured-img">
+	</section>
+
+	<main>
+		<section>
+			<h2
+				style="font-size: 1.65rem; margin-bottom: 1.8rem; border-bottom: 3px solid var(--accent); padding-bottom: 0.9rem;">
+				Latest Articles</h2>
+			<div class="articles" id="latest-articles"></div>
+		</section>
+
+		<aside>
+			<div class="sidebar-box" style="border: 1px solid var(--border); padding: 1.8rem;">
+				<h3>Popular This Week</h3>
+				<p style="margin: 1.2rem 0;">• How to Secure Your Systems in 2026</p>
+				<p style="margin: 1.2rem 0;">• The Rise of Local AI Models</p>
+				<p style="margin: 1.2rem 0;">• Arduino vs ESP32 Showdown</p>
+			</div>
+		</aside>
+	</main>
+
+	<!-- Discover More Section -->
+	<section class="discover-more">
+		<h2>Discover More Amazing Tech Content</h2>
+		<p>From hands-on experiments to in-depth technical breakdowns — explore our full library of cutting-edge
+			content.</p>
+		<button onclick="window.location.href='blogs.html'" class="explore-btn">
+			Explore All Content →
+		</button>
+	</section>
+
+	<footer>
+		<div class="footer-grid">
+			<div>
+				<h3>CoreTech</h3>
+				<p>Independent tech platform delivering deep dives, experiments, and the latest breakthroughs in
+					technology.</p>
+			</div>
+			<div>
+				<h3>Sections</h3>
+				<a href="blogs.html">Blogs & Deep Dives</a>
+				<a href="experiments.html">Hands-on Experiments</a>
+			</div>
+			<div>
+				<h3>Company</h3>
+				<a href="about.html">About Us</a>
+				<a href="contact.html">Contact</a>
+				<a href="privacy-policy.html">Privacy Policy</a>
+				<a href="terms.html">Terms of Service</a>
+			</div>
+			<!-- <div>
+				<h3>Follow Us</h3>
+				<a href="#">Twitter / X</a>
+				<a href="#">YouTube</a>
+				<a href="#">LinkedIn</a>
+				<a href="#">RSS Feed</a>
+				<p style="margin-top: 2rem; font-size: 0.85rem;">© 2026 CoreTech. All Rights Reserved.</p>
+			</div> -->
+		</div>
+	</footer>
+
+	<!-- Back to Top -->
+	<div id="backToTop" title="Back to Top">↑</div>
+
+	<script>
+		function stripHTML(html) {
+			return html.replace(/<[^>]*>?/gm, '');
+		}
+
+		async function loadLatest(filter = '') {
+			const container = document.getElementById('latest-articles');
+			if (!container) return;
+
+			try {
+				// Load both files
+				const [blogsRes, researchesRes] = await Promise.all([
+					fetch('blogs.json'),
+					fetch('researches.json')
+				]);
+
+				const blogs = await blogsRes.json();
+				const researches = await researchesRes.json();
+
+				// Combine both arrays
+				let data = [...blogs, ...researches];
+
+				// Filter by show-on-homepage
+				data = data.filter(item => item["show-on-homepage"] === true);
+
+				// Search functionality
+				if (filter.trim() !== '') {
+					const term = filter.toLowerCase().trim();
+					data = data.filter(item =>
+						(item.id && item.id.toLowerCase().includes(term)) ||
+						(item.title && item.title.toLowerCase().includes(term)) ||
+						(item.category && item.category.toLowerCase().includes(term)) ||
+						(item.link && item.link.toLowerCase().includes(term))
+					);
+				}
+
+				if (data.length === 0) {
+					container.innerHTML = `<p style="color:#999; padding: 3rem; text-align:center;">No matching articles found.</p>`;
+					return;
+				}
+
+				container.innerHTML = data.map(item => `
+                <div class="article-card">
+                    <img src="${item.img || 'https://picsum.photos/id/' + (Math.floor(Math.random() * 100) + 1) + '/600/400'}" 
+                         alt="${item.title}" class="article-img">
+                    <div class="article-content">
+                        <span style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">${item.category || 'TECH'}</span>
+                        <h3>${item.title}</h3>
+                        <p>${stripHTML(item.description).substring(0, 165)}...</p>
+                        <div class="meta">CoreTech • May 2026</div>
+                        <a href="post.html?id=${item.id}" style="color: var(--accent); font-weight: 600; text-decoration: none; margin-top: 0.8rem; display: inline-block;">
+                            Read more →
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+			} catch (e) {
+				console.error("Error loading articles:", e);
+				container.innerHTML = `<p style="color:#999; padding: 2rem; text-align:center;">Failed to load articles. Check console.</p>`;
+			}
+		}
+
+		// Real-time Search
+		function activateSearch() {
+			const searchInput = document.getElementById('searchInput');
+
+			searchInput.addEventListener('input', () => {
+				loadLatest(searchInput.value);
+			});
+		}
+
+		// Back to Top
+		const backToTop = document.getElementById('backToTop');
+		window.addEventListener('scroll', () => {
+			backToTop.style.display = window.scrollY > 600 ? 'flex' : 'none';
+		});
+
+		backToTop.addEventListener('click', () => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+
+		// Initialize
+		document.addEventListener('DOMContentLoaded', () => {
+			loadLatest();        // Load featured posts from both files
+			activateSearch();
+		});
+	</script>
+</body>
+
+>>>>>>> 5810eac19b5e07ba96ead36c8588ca63b60d347e
 </html>

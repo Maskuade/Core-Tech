@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://sitemaps.org">
     <!-- Core Shell Index Pages -->
@@ -17,4 +18,67 @@
     <url><loc>https://coretech.dpdns.org/the-complete-history-and-future-of-headphones.html</loc><lastmod>2026-05-21</lastmod><priority>0.70</priority></url>
     <url><loc>https://coretech.dpdns.org/combining-python-and-cpp-experiment.html</loc><lastmod>2026-05-21</lastmod><priority>0.70</priority></url>
     <url><loc>https://coretech.dpdns.org/python-rust-cpp-hacking-experiment.html</loc><lastmod>2026-05-21</lastmod><priority>0.70</priority></url>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://sitemaps.org">
+    <!-- Core Pages -->
+    <url>
+        <loc>https://coretech.dpdns.org/</loc>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/blogs.html</loc>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/experiments.html</loc>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/about.html</loc>
+        <priority>0.50</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/contact.html</loc>
+        <priority>0.50</priority>
+    </url>
+    <!-- Blog Posts -->
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=how-actual-code-runs-in-arduino</loc>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=is-cpp-dead</loc>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=the-secret-of-next-gen-mobile-batteries</loc>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=history-of-mobile-charging-speeds</loc>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=the-complete-history-and-future-of-headphones</loc>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=combining-python-and-cpp-experiment</loc>
+        <priority>0.70</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/post.html?id=python-rust-cpp-hacking-experiment</loc>
+        <priority>0.70</priority>
+    </url>
+    <!-- Legal Pages -->
+    <url>
+        <loc>https://coretech.dpdns.org/privacy-policy.html</loc>
+        <priority>0.30</priority>
+    </url>
+    <url>
+        <loc>https://coretech.dpdns.org/terms.html</loc>
+        <priority>0.30</priority>
+    </url>
+>>>>>>> 5810eac19b5e07ba96ead36c8588ca63b60d347e
 </urlset>
