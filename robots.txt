@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://coretech.dpdns.org/sitemap.xml
