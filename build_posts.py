@@ -2,165 +2,444 @@ import json
 import os
 import re
 import random
+import hashlib
 from datetime import datetime
+from pathlib import Path
+from typing import List, Dict, Set, Optional
+
+
+class StaticSiteGenerator:
+    """Professional static site generator with proper file management"""
+    
+    def __init__(self):
+        self.site_url = "https://coretech.dpdns.org"
+        self.required_templates = ['post.html', 'index.html', 'blogs.html', 'experiments.html']
+        # ADD THESE - Static pages to NEVER delete
+        self.static_pages = [
+            'about.html', 'contact.html', 'privacy-policy.html', 'terms.html',
+            'news.html', '404.html', 'style.css', 'ms-icon-310x310.png'
+        ]
+        self.generated_posts: Set[str] = set()
+        
+    def run(self) -> bool:
+        """Main execution method"""
+        print("\n" + "="*50)
+        print("🚀 CORETECH STATIC SITE GENERATOR v2.0")
+        print("="*50 + "\n")
+        
+        # Validate templates exist
+        if not self._validate_templates():
+            return False
+            
+        # Load data
+        blogs = self._load_json('blogs.json')
+        researches = self._load_json('researches.json')
+        all_articles = blogs + researches
+        
+        print(f"📦 Loaded {len(blogs)} blogs, {len(researches)} experiments")
+        print(f"📄 Total articles: {len(all_articles)}\n")
+        
+        # Generate individual post pages
+        print("🔨 Generating individual post pages...")
+        for article in all_articles:
+            self._generate_post_page(article)
+        
+        # Update main listing pages
+        print("\n📝 Updating listing pages...")
+        self._update_listing_page('index.html', 'latest-articles',
+                                [a for a in all_articles if a.get('show-on-homepage', False)])
+        self._update_listing_page('blogs.html', 'blog-list', blogs)
+        self._update_listing_page('experiments.html', 'experiments-list', researches)
+        
+        # Generate sitemap
+        self._generate_sitemap(all_articles)
+        
+        # Clean up any orphaned files (PRESERVING static pages)
+        self._cleanup_orphaned_posts(all_articles)
+        
+        print("\n" + "="*50)
+        print("✅ BUILD COMPLETE!")
+        print(f"   📊 Generated {len(self.generated_posts)} post pages")
+        print("   🏠 Updated: index.html, blogs.html, experiments.html")
+        print("   🗺️  Generated: sitemap.xml")
+        print("   🔒 Preserved static pages: about, contact, privacy, terms")
+        print("="*50 + "\n")
+        
+        return True
+    
+    def _validate_templates(self) -> bool:
+        """Ensure all required template files exist"""
+        missing = [f for f in self.required_templates if not os.path.exists(f)]
+        if missing:
+            print(f"❌ Missing required templates: {', '.join(missing)}")
+            return False
+        return True
+    
+    def _load_json(self, filename: str) -> List[Dict]:
+        """Load JSON data with error handling"""
+        if not os.path.exists(filename):
+            print(f"⚠️  {filename} not found, using empty list")
+            return []
+        
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                # Ensure all items have required fields
+                for item in data:
+                    if 'id' not in item:
+                        item['id'] = self._generate_slug(item.get('title', 'untitled'))
+                return data
+        except json.JSONDecodeError as e:
+            print(f"❌ Error parsing {filename}: {e}")
+            return []
+    
+    def _generate_slug(self, title: str) -> str:
+        """Generate URL-friendly slug from title"""
+        slug = title.lower()
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        slug = slug.strip('-')
+        return slug
+    
+    def _get_existing_ids(self, content: str, container_id: str) -> Set[str]:
+        """Extract existing article IDs from HTML container"""
+        # Find the container div
+        pattern = rf'<div[^>]*id=["\']?{container_id}["\']?[^>]*>'
+        match = re.search(pattern, content)
+        if not match:
+            return set()
+        
+        start_pos = match.end()
+        # Find the closing div (handling nested divs)
+        depth = 1
+        pos = start_pos
+        while depth > 0 and pos < len(content):
+            if content[pos:pos + 6] == '<div':
+                depth += 1
+                pos += 6
+            elif content[pos:pos + 7] == '</div>':
+                depth -= 1
+                pos += 7
+            else:
+                pos += 1
+        
+        container_content = content[start_pos:pos - 7]  # -7 for </div>
+        
+        # Extract IDs from href attributes
+        links = re.findall(r'href=["\']([^"\']*\.html)["\']', container_content)
+        ids = {link.replace('.html', '') for link in links 
+               if not link.startswith('http') and link.endswith('.html')}
+        
+        return ids
+
+    def _render_card(self, post: Dict) -> str:
+        """Generate HTML card for an article (NO SCHEMA - keep it clean)"""
+        post_id = post.get('id', self._generate_slug(post.get('title', '')))
+        title = post.get('title', 'Tech Insight')
+        category = post.get('category', 'TECH').upper()
+
+        # Clean description
+        desc_raw = post.get('description', '')
+        desc = re.sub(r'<[^>]+>', '', desc_raw)[:160]
+        if len(desc) >= 157:
+            desc += '...'
+
+        img = post.get('img', '')
+        link = f"{post_id}.html"
+
+        return f'''            <div class="article-card">
+                    <img src="{img}" alt="{title}" class="article-img" loading="lazy">
+                    <div class="article-content">
+                        <span class="article-category" style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">{category}</span>
+                        <h3>{self._escape_html(title)}</h3>
+                        <p>{self._escape_html(desc)}</p>
+                        <div class="meta">CoreTech • {datetime.now().strftime('%B %Y')}</div>
+                        <a href="{link}" class="read-more">Read Full Article →</a>
+                    </div>
+                </div>
+    '''
+    
+    def _escape_html(self, text: str) -> str:
+        """Basic HTML escaping"""
+        if not text:
+            return ""
+        return str(text).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+    def _update_listing_page(self, filename: str, container_id: str, articles: List[Dict]) -> None:
+        """COMPLETELY WIPE container and REGENERATE from JSON"""
+        print(f"   📄 Processing {filename}...")
+    
+        with open(filename, 'r', encoding='utf-8') as f:
+            content = f.read()
+    
+        # Generate fresh cards from JSON
+        cards_html = []
+        for article in articles:
+            cards_html.append(self._render_card(article))
+        new_content = '\n'.join(cards_html) if cards_html else ''
+    
+        # Find the container using string search (NO REGEX!)
+        start_marker = f'<div class="articles" id="{container_id}">'
+        end_marker = '</div>'
+    
+        start_pos = content.find(start_marker)
+        if start_pos == -1:
+            print(f"      ❌ Container '{container_id}' not found in {filename}")
+            return
+    
+        # Find the matching closing tag (count nested divs)
+        depth = 1
+        pos = start_pos + len(start_marker)
+        while depth > 0 and pos < len(content):
+            if content[pos:pos + 5] == '<div ' or content[pos:pos + 4] == '<div>':
+                depth += 1
+                pos += 4
+            elif content[pos:pos + 6] == '</div>':
+                depth -= 1
+                pos += 6
+            else:
+                pos += 1
+    
+        end_pos = pos - 6  # Position of the closing </div>
+    
+        # Build the new container with fresh content
+        new_container = f'{start_marker}\n{new_content}\n        {end_marker}'
+        updated = content[:start_pos] + new_container + content[end_pos:]
+    
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(updated)
+    
+        print(f"      ✅ Wiped and regenerated {filename} with {len(cards_html)} cards")
+
+    def _generate_faq_section(self, article: Dict) -> str:
+        """Generate FAQ section from article data"""
+        # Try different possible field names
+        faqs = article.get('FAQ') or article.get('faqs') or article.get('faq')
+
+        # Check if faqs exists and is a non-empty list
+        if not faqs or not isinstance(faqs, list) or len(faqs) == 0:
+            return ''
+
+        faq_items_html = []
+        for faq in faqs:
+            question = faq.get('question', '')
+            answer = faq.get('answer', '')
+            if question and answer:
+                faq_items_html.append(f'''
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>{self._escape_html(question)}</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>{self._escape_html(answer)}</p>
+                    </div>
+                </div>
+                ''')
+
+        if not faq_items_html:
+            return ''
+
+        return f'''
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                {''.join(faq_items_html)}
+            </div>
+        </div>
+    '''
+
+    def _generate_post_page(self, article: Dict) -> None:
+        """Generate individual post HTML file from template"""
+        post_id = article.get('id')
+        if not post_id:
+            post_id = self._generate_slug(article.get('title', ''))
+            article['id'] = post_id
+        
+        output_file = f"{post_id}.html"
+        
+        # Skip if already generated in this run
+        if output_file in self.generated_posts:
+            return
+        
+        # Load template
+        with open('post.html', 'r', encoding='utf-8') as f:
+            template = f.read()
+        
+        # Prepare content
+        title = article.get('title', 'Tech Deep Dive')
+        category = article.get('category', 'Technology')
+        description = article.get('description', '')
+        content_body = article.get('content', description)
+        
+        # ========== FIXED IMAGE HANDLING ==========
+        # Try featured_img first, then fallback to img
+        img = article.get('featured_img') or article.get('img')
+        
+        # If image is missing OR is base64 data (which breaks on post pages), use fallback
+        # if not img:
+            # img = f"https://picsum.photos/id/{random.randint(100, 400)}/1200/600"
+        # elif img.startswith('data:image'):
+        #     # Base64 images don't work well on post pages
+        #     # Use consistent image based on post_id
+        #     hash_val = abs(hash(post_id)) % 300 + 100
+        #     img = f"https://picsum.photos/id/{hash_val}/1200/600"
+        
+        # Replace template placeholders
+        html = template
+        
+        # Meta tags
+        html = html.replace('<title>CoreTech | Loading Deep Dive...</title>',
+                        f'<title>CoreTech | {self._escape_html(title)}</title>')
+        
+        # Update meta description
+        meta_desc = re.sub(
+            r'<meta name="description" content="[^"]*"',
+            f'<meta name="description" content="{self._escape_html(description)}"',
+            html
+        )
+        if meta_desc != html:
+            html = meta_desc
+        
+        # Update canonical URL
+        html = re.sub(
+            r'<link rel="canonical" href="[^"]*"',
+            f'<link rel="canonical" href="{self.site_url}/{output_file}"',
+            html
+        )
+        # Generate FAQ section (add this line BEFORE the content_html)
+        faq_html = self._generate_faq_section(article)
+        
+        # Update content area
+        content_html = f'''
+        <main id="post-container">
+            <span class="category">{self._escape_html(category)}</span>
+            <h1>{self._escape_html(title)}</h1>
+            <div class="article-meta">
+                Published: {datetime.now().strftime('%B %d, %Y')} • CoreTech
+            </div>
+            <img src="{img}" alt="{self._escape_html(title)}" class="featured-img" loading="eager">
+            <div class="article-body article-content-render">
+                {content_body}
+            </div>
+            {faq_html}
+        </main>
+    '''
+        
+        # Find and replace main content
+        main_pattern = r'<main id="post-container">[\s\S]*?</main>'
+        html = re.sub(main_pattern, content_html, html)
+        
+        # Write file
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(html)
+        
+        self.generated_posts.add(output_file)
+        print(f"      📝 Generated: {output_file}")
+
+    def _generate_sitemap(self, articles: List[Dict]) -> None:
+        """Generate sitemap.xml"""
+        print("   🗺️  Generating sitemap.xml...")
+        
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        
+        sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{self.site_url}/</loc>
+        <lastmod>{current_date}</lastmod>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>{self.site_url}/blogs.html</loc>
+        <lastmod>{current_date}</lastmod>
+        <priority>0.90</priority>
+    </url>
+    <url>
+        <loc>{self.site_url}/experiments.html</loc>
+        <lastmod>{current_date}</lastmod>
+        <priority>0.90</priority>
+    </url>
+'''
+        
+        # Add static pages to sitemap
+        static_urls = [
+            ('about.html', 0.70),
+            ('contact.html', 0.70),
+            ('privacy-policy.html', 0.50),
+            ('terms.html', 0.50),
+        ]
+        
+        for page, priority in static_urls:
+            if os.path.exists(page):
+                sitemap += f'''    <url>
+        <loc>{self.site_url}/{page}</loc>
+        <lastmod>{current_date}</lastmod>
+        <priority>{priority}</priority>
+    </url>
+'''
+        
+        for article in articles:
+            post_id = article.get('id')
+            if post_id:
+                sitemap += f'''    <url>
+        <loc>{self.site_url}/{post_id}.html</loc>
+        <lastmod>{current_date}</lastmod>
+        <priority>0.75</priority>
+    </url>
+'''
+        
+        sitemap += '</urlset>'
+        
+        with open('sitemap.xml', 'w', encoding='utf-8') as f:
+            f.write(sitemap)
+        
+        print("      ✅ Sitemap generated")
+    
+    def _cleanup_orphaned_posts(self, articles: List[Dict]) -> None:
+        """Remove post files that are no longer referenced in JSON - BUT NEVER delete static pages!"""
+        print("   🧹 Cleaning up orphaned posts...")
+        
+        active_ids = {article.get('id') for article in articles if article.get('id')}
+        
+        # Files that should NEVER be deleted (static pages + templates)
+        protected_files = set(self.required_templates + self.static_pages)
+        
+        orphaned = []
+        
+        for file in Path('.').glob('*.html'):
+            # Skip protected files
+            if file.name in protected_files:
+                continue
+            
+            # Check if it's a generated post
+            post_id = file.stem
+            
+            # Only delete if it's NOT a static page and NOT in active IDs
+            if post_id not in active_ids:
+                try:
+                    file.unlink()
+                    orphaned.append(file.name)
+                except Exception as e:
+                    print(f"      ⚠️  Could not delete {file.name}: {e}")
+        
+        if orphaned:
+            print(f"      🗑️  Removed {len(orphaned)} orphaned posts: {', '.join(orphaned[:5])}")
+            if len(orphaned) > 5:
+                print(f"         ... and {len(orphaned) - 5} more")
+        else:
+            print("      ✅ No orphaned files found")
 
 
 def build_static_site():
-    # Verify core layout files are present
-    required_files = ['post.html', 'index.html', 'blogs.html', 'experiments.html']
-    for file in required_files:
-        if not os.path.exists(file):
-            print(f"❌ Error: Required core file '{file}' missing from workspace directory!")
-            return
-            
-    with open('post.html', 'r', encoding='utf-8') as template_file:
-        post_template = template_file.read()
-
-    # Read data streams natively
-    blogs = []
-    researches = []
-    if os.path.exists('blogs.json'):
-        with open('blogs.json', 'r', encoding='utf-8') as f: blogs = json.load(f)
-    if os.path.exists('researches.json'):
-        with open('researches.json', 'r', encoding='utf-8') as f: researches = json.load(f)
-
-    all_articles = blogs + researches
-    current_date = datetime.now().strftime('%Y-%m-%d')
-    print(f"🔄 Starting complete site compilation for {len(all_articles)} items...")
-
-    # --- PART A: BUILD STANDALONE HTML ARTICLE PAGES ---
-    compiled_count = 0
-    for item in all_articles:
-        post_id = item.get('id')
-        if not post_id: continue
-
-        title = item.get('title', 'Technology Article')
-        category = item.get('category', 'TECH').upper()
-        article_body_html = item.get('description', '')
-        image_data = item.get('img', '')
-        output_filename = f"{post_id}.html"
-
-        faq_html = ""
-        faq_list = item.get('FAQ', [])
-        if faq_list:
-            faq_html += '\n\t<div class="faq-box" style="margin-top:4rem;"><h2>Frequently Asked Questions</h2>'
-            for faq in faq_list:
-                faq_html += f'''
-        <details class="faq-item" style="margin: 1rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
-            <summary class="faq-question" style="cursor:pointer; font-weight:700;">{faq.get('question')}</summary>
-            <div class="faq-answer" style="margin-top:0.5rem;"><p>{faq.get('answer')}</p></div>
-        </details>'''
-            faq_html += '\n\t</div>'
-
-        article_markup = f'''
-        <article class="article-body" style="padding-top: 2rem;">
-            <span class="category" style="color: var(--accent); font-weight: 700;">{category}</span>
-            <div class="article-meta" style="color:var(--muted); margin-bottom:1rem;">Published by CoreTech • 2026</div>
-            <img src="{image_data}" alt="{title}" class="featured-img" style="width:100%; max-height:480px; object-fit:cover; border-radius:12px; margin-bottom:2rem;">
-            <div class="article-content-render">
-                {article_body_html}
-            </div>
-            {faq_html}
-            <a href="index.html" class="back-link" style="display:inline-block; margin-top:3rem; color:var(--accent); text-decoration:none; font-weight:600;">← Back to Homepage</a>
-        </article>
-        '''
-
-        container_pattern = r'(<main\s+id=["\']post-container["\']\s*>)[\s\S]*?(<\/main>)'
-        fixed_main_block = r'\1' + article_markup + r'\2'
-        page_output = re.sub(container_pattern, fixed_main_block, post_template)
-        page_output = re.sub(r'<title>.*?<\/title>', f'<title>{title} | CoreTech</title>', page_output)
-
-        with open(output_filename, 'w', encoding='utf-8') as out_file:
-            out_file.write(page_output)
-        compiled_count += 1
-    print(f"   ↳ ✅ Successfully compiled {compiled_count} unique post pages.")
-
-    # --- PART B: AUTOMATE SITEMAP.XML GENERATION ---
-    print("🌐 Automating sitemap.xml structure...")
-    sitemap_xml = f'''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://sitemaps.org">
-    <!-- Core Shell Index Pages -->
-    <url><loc>https://coretech.dpdns.org</loc><lastmod>{current_date}</lastmod><priority>1.00</priority></url>
-    <url><loc>https://coretech.dpdns.org/blogs.html</loc><lastmod>{current_date}</lastmod><priority>0.80</priority></url>
-    <url><loc>https://coretech.dpdns.org/experiments.html</loc><lastmod>{current_date}</lastmod><priority>0.80</priority></url>
-    <url><loc>https://coretech.dpdns.org/about.html</loc><lastmod>{current_date}</lastmod><priority>0.50</priority></url>
-    <url><loc>https://coretech.dpdns.org/contact.html</loc><lastmod>{current_date}</lastmod><priority>0.50</priority></url>
-    <url><loc>https://coretech.dpdns.org/privacy-policy.html</loc><lastmod>{current_date}</lastmod><priority>0.30</priority></url>
-    <url><loc>https://coretech.dpdns.org/terms.html</loc><lastmod>{current_date}</lastmod><priority>0.30</priority></url>
+    """Entry point for the static site generator"""
+    generator = StaticSiteGenerator()
+    success = generator.run()
     
-    <!-- Dynamic Compiled Post Frameworks -->'''
-
-    for item in all_articles:
-        post_id = item.get('id')
-        if post_id:
-            sitemap_xml += f'\n    <url><loc>https://coretech.dpdns.org/{post_id}.html</loc><lastmod>{current_date}</lastmod><priority>0.70</priority></url>'
-    sitemap_xml += '\n</urlset>'
+    if not success:
+        print("\n❌ Build failed. Please check the errors above.")
+        return False
     
-    with open('sitemap.xml', 'w', encoding='utf-8') as xml_file:
-        xml_file.write(sitemap_xml.strip())
-    print("   ↳ ✅ sitemap.xml index map successfully synchronized!")
-
-    # --- PART C: AUTOMATE LLMS.TXT COGNITIVE MAPPING ---
-    print("🤖 Synthesizing structural llms.txt context profiles...")
-    llms_text = f'''# CoreTech
-> A technology and software engineering platform rediscovering the curiosity, fun, and wonder of tech—from our childhood dreams to the AI era.
-
-## Core Technology Articles & Experiments'''
-    for item in all_articles:
-        post_id = item.get('id')
-        if post_id:
-            desc_clean = re.sub('<[^<]+?>', '', item.get('description', ''))[:140].strip() + '...'
-            llms_text += f'\n- [{item.get("title")}](https://coretech.dpdns.org/{post_id}.html): {desc_clean}'
-            
-    with open('llms.txt', 'w', encoding='utf-8') as txt_file:
-        txt_file.write(llms_text.strip())
-    print("   ↳ ✅ llms.txt AI dataset synced!")
-
-    # --- HELPER FUNCTION TO COMPILE ARTICLE CARDS ---
-    def generate_cards_layout(dataset):
-        html_cards = "\n"
-        for post in dataset:
-            p_title = post.get('title', 'Tech Insight')
-            p_category = post.get('category', 'Technology').upper()
-            p_desc = re.sub('<[^<]+?>', '', post.get('description', ''))[:165].strip() + '...'
-            p_img = post.get('img') if post.get('img') else f"https://picsum.photos{random.randint(1,100)}/600/400"
-            p_link = f"{post.get('id')}.html"
-            html_cards += f'''
-                <div class="article-card">
-                    <img src="{p_img}" alt="{p_title}" class="article-img">
-                    <div class="article-content">
-                        <span style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">{p_category}</span>
-                        <h3>{p_title}</h3>
-                        <p>{p_desc}</p>
-                        <div class="meta">CoreTech • May 2026</div>
-                        <a href="{p_link}" style="color: var(--accent); font-weight: 600; text-decoration: none; margin-top: 0.8rem; display: inline-block;">
-                            Read Full Article →
-                        </a>
-                    </div>
-                </div>\n'''
-        return html_cards
-
-    # --- PART D: HARDCODE INDEX.HTML ---
-    print("🏠 Hardcoding homepage feed (index.html)...")
-    home_data = [i for i in all_articles if i.get("show-on-homepage") == True]
-    with open('index.html', 'r', encoding='utf-8') as f: index_content = f.read()
-    updated_index = re.sub(r'(<div\s+class=["\']articles["\']\s+id=["\']latest-articles["\']\s*>)[\s\S]*?(<\/div>)', r'\1' + generate_cards_layout(home_data) + '\t\t\t' + r'\2', index_content)
-    with open('index.html', 'w', encoding='utf-8') as f: f.write(updated_index)
-
-    # --- PART E: HARDCODE BLOGS.HTML ---
-    print("📰 Hardcoding blogs feed (blogs.html)...")
-    with open('blogs.html', 'r', encoding='utf-8') as f: blogs_content = f.read()
-    updated_blogs = re.sub(r'(<div\s+[^>]*id=["\']blog-list["\']\s*>)[\s\S]*?(<\/div>)', r'\1' + generate_cards_layout(blogs) + '\t\t\t' + r'\2', blogs_content)
-    with open('blogs.html', 'w', encoding='utf-8') as f: f.write(updated_blogs)
-
-    # --- PART F: HARDCODE EXPERIMENTS.HTML ---
-    print("🧪 Hardcoding research feed (experiments.html)...")
-    with open('experiments.html', 'r', encoding='utf-8') as f: exp_content = f.read()
-    # 🎯 Fixed ID pattern to match your exact plural "experiments-list" template element
-    updated_exp = re.sub(r'(<div\s+[^>]*id=["\']experiments-list["\']\s*>)[\s\S]*?(<\/div>)', r'\1' + generate_cards_layout(researches) + '\t\t\t' + r'\2', exp_content)
-    with open('experiments.html', 'w', encoding='utf-8') as f: f.write(updated_exp)
-
-    print("\n🚀 PLATFORM COMPILATION 100% SUCCESSFUL! STATIC ARCHITECTURE BUILT.")
+    return True
 
 
 if __name__ == '__main__':
