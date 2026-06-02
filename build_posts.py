@@ -257,11 +257,8 @@ class StaticSiteGenerator:
         
         output_file = f"{post_id}.html"
         
-        # Skip if already generated in this run
         if output_file in self.generated_posts:
             return
-        
-        # Load template
         with open('post.html', 'r', encoding='utf-8') as f:
             template = f.read()
         
@@ -269,10 +266,8 @@ class StaticSiteGenerator:
         title = article.get('title', 'Tech Deep Dive')
         category = article.get('category', 'Technology')
         description = article.get('description', '')
+        meta_desc = article.get('meta_desc', 'Description Is Not Available')
         content_body = article.get('content', description)
-        
-        # ========== FIXED IMAGE HANDLING ==========
-        # Try featured_img first, then fallback to img
         img = article.get('featured_img') or article.get('img')
         
         # If image is missing OR is base64 data (which breaks on post pages), use fallback
@@ -286,15 +281,14 @@ class StaticSiteGenerator:
         
         # Replace template placeholders
         html = template
-        
         # Meta tags
         html = html.replace('<title>CoreTech | Loading Deep Dive...</title>',
-                        f'<title>CoreTech | {self._escape_html(title)}</title>')
+                        f'<title>{self._escape_html(title)}</title>')
         
         # Update meta description
         meta_desc = re.sub(
             r'<meta name="description" content="[^"]*"',
-            f'<meta name="description" content="{self._escape_html(description)}"',
+            f'<meta name="description" content="{self._escape_html(meta_desc)}"',
             html
         )
         if meta_desc != html:
@@ -313,11 +307,10 @@ class StaticSiteGenerator:
         content_html = f'''
         <main id="post-container">
             <span class="category">{self._escape_html(category)}</span>
-            <h1>{self._escape_html(title)}</h1>
             <div class="article-meta">
                 Published: {datetime.now().strftime('%B %d, %Y')} • CoreTech
             </div>
-            <img src="{img}" alt="{self._escape_html(title)}" class="featured-img" loading="eager">
+            <img title="{self._escape_html(title)}" src="{img}" alt="{self._escape_html(title)}" class="featured-img" loading="eager">
             <div class="article-body article-content-render">
                 {content_body}
             </div>

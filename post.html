@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- 1. Resource Hints: Warms up the connection to Google servers early -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <!-- 2. Non-blocking Google Tag Manager: Fired with defer to protect mobile LCP rendering -->
     <script defer src="https://googletagmanager.com/gtag/js?id=G-7MGJQ3XXP6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -13,10 +11,11 @@
         gtag('config', 'G-7MGJQ3XXP6');
     </script>
     <meta charset="UTF-8">
+    <link rel="canonical" href="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
     <title>CoreTech | Loading Deep Dive...</title>
     <link rel="shortcut icon" href="ms-icon-310x310.png" type="image/x-icon">
-
     <style>
         :root {
             --header: #0a2540;
@@ -30,6 +29,8 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
+            cursor: pointer;
         }
 
         body {
@@ -304,6 +305,254 @@
             padding: 0 1.5rem 1.5rem;
             max-height: 500px;
         }
+
+        td {
+            border: 2px, solid, black;
+            padding: 20px;
+        }
+
+        /* ==================== ARTICLE CONTENT TYPOGRAPHY ==================== */
+
+        .article-body {
+            font-size: 1.22rem;
+            line-height: 1.85;
+            color: var(--text);
+        }
+
+        /* Headings */
+        .article-body h2 {
+            font-size: 2.1rem;
+            line-height: 1.25;
+            margin: 2.5rem 0 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--header);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.6rem;
+        }
+
+        .article-body h3 {
+            font-size: 1.75rem;
+            line-height: 1.3;
+            margin: 2.2rem 0 1rem;
+            font-weight: 700;
+            color: var(--header);
+        }
+
+        .article-body h4 {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            margin: 1.8rem 0 0.9rem;
+            font-weight: 700;
+            color: var(--header);
+        }
+
+        .article-body h5 {
+            font-size: 1.25rem;
+            line-height: 1.4;
+            margin: 1.6rem 0 0.8rem;
+            font-weight: 600;
+            color: var(--header);
+        }
+
+        .article-body h6 {
+            font-size: 1.1rem;
+            line-height: 1.45;
+            margin: 1.4rem 0 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--muted);
+        }
+
+        /* Paragraphs & Text */
+        .article-body p {
+            margin-bottom: 1.4rem;
+            font-size: 16px;
+            color: #222;
+        }
+
+        .article-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Inline Elements */
+        .article-body strong,
+        .article-body b {
+            font-weight: 700;
+            color: #111;
+        }
+
+        .article-body em,
+        .article-body i {
+            font-style: italic;
+            color: #333;
+        }
+
+        .article-body code {
+            font-family: 'Courier New', monospace;
+            background: #f8f8f8;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #d32f2f;
+        }
+
+        /* Lists */
+        .article-body ul,
+        .article-body ol {
+            font-size: 16px;
+            margin: 1.4rem 0;
+            padding-left: 1.8rem;
+        }
+
+        .article-body ul {
+            list-style-type: disc;
+        }
+
+        .article-body ol {
+            list-style-type: decimal;
+        }
+
+        .article-body li {
+            margin-bottom: 0.6rem;
+            line-height: 1.75;
+        }
+
+        .article-body ul ul,
+        .article-body ol ol {
+            margin: 0.6rem 0;
+        }
+
+        /* Tables */
+        .article-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .article-body th,
+        .article-body td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .article-body th {
+            background: var(--header);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 0.4px;
+        }
+
+        .article-body tr:hover {
+            background: #f9f9f9;
+        }
+
+        .article-body table caption {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        /* Blockquotes */
+        .article-body blockquote {
+            margin: 2rem 0;
+            padding: 1.2rem 1.8rem;
+            border-left: 5px solid var(--accent);
+            background: #f9f9f9;
+            font-style: italic;
+            color: #444;
+        }
+
+        /* Horizontal Rule */
+        .article-body hr {
+            margin: 3rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+        }
+
+        /* ==================== LISTS (Including Nested Lists) ==================== */
+
+        .article-body ul,
+        .article-body ol {
+            margin: 1.6rem 0;
+            padding-left: 1.8rem;
+            line-height: 1.75;
+        }
+
+        .article-body li {
+            margin-bottom: 0.65rem;
+        }
+
+        /* Unordered Lists */
+        .article-body ul {
+            list-style-type: disc;
+        }
+
+        .article-body ul ul {
+            list-style-type: circle;
+            margin: 0.6rem 0 0.6rem 0;
+        }
+
+        .article-body ul ul ul {
+            list-style-type: square;
+        }
+
+        .article-body ul ul ul ul {
+            list-style-type: disc;
+        }
+
+        /* Ordered Lists */
+        .article-body ol {
+            list-style-type: decimal;
+        }
+
+        .article-body ol ol {
+            list-style-type: lower-alpha;
+            /* a, b, c... */
+            margin: 0.6rem 0 0.6rem 0;
+        }
+
+        .article-body ol ol ol {
+            list-style-type: lower-roman;
+            /* i, ii, iii... */
+        }
+
+        .article-body ol ol ol ol {
+            list-style-type: decimal;
+        }
+
+        /* Nested List Spacing & Indentation */
+        .article-body li ul,
+        .article-body li ol {
+            margin-top: 0.4rem;
+            margin-bottom: 0.4rem;
+            padding-left: 1.6rem;
+        }
+
+        /* Optional: Better visual hierarchy for deep nesting */
+        .article-body ul ul ul ul ul {
+            list-style-type: circle;
+        }
+
+        .article-body ol ol ol ol ol {
+            list-style-type: lower-alpha;
+        }
+
+        /* Mix of ul and ol nesting */
+        .article-body li ul,
+        .article-body li ol {
+            margin-left: 0.8rem;
+        }
     </style>
 </head>
 
@@ -375,7 +624,7 @@
                 "author": { "@type": "Organization", "name": "CoreTech" },
                 "publisher": { "@type": "Organization", "name": "CoreTech" },
                 "mainEntityOfPage": { "@type": "WebPage", "@id": window.location.href },
-                "datePublished": "2026-05-21T00:00:00Z",
+                "datePublished": "2026-05-21T00:00:00Z"
             });
 
             const faqItems = document.querySelectorAll('.faq-item');
