@@ -553,16 +553,537 @@
         .article-body li ol {
             margin-left: 0.8rem;
         }
+
+        /* ========================================
+   COMPLETE RESPONSIVE CSS FOR BLOG POST PAGE
+   Simple | Fast | No Mess | Every Device
+   ======================================== */
+
+        /* TABLET & SMALL DESKTOP (max-width: 992px) */
+        @media (max-width: 992px) {
+            header.top {
+                padding: 0.75rem 4%;
+            }
+
+            main {
+                margin: 90px auto 3rem;
+                padding: 0 4%;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .featured-img {
+                height: 350px;
+            }
+
+            .article-body {
+                font-size: 1.1rem;
+            }
+
+            .article-body h2 {
+                font-size: 1.8rem;
+            }
+
+            .article-body h3 {
+                font-size: 1.5rem;
+            }
+
+            .article-body h4 {
+                font-size: 1.3rem;
+            }
+
+            .faq-section {
+                padding: 1.5rem;
+            }
+
+            .faq-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .footer-grid {
+                gap: 2rem;
+            }
+        }
+
+        /* MOBILE LANDSCAPE (max-width: 768px) */
+        @media (max-width: 768px) {
+
+            /* Fix header - stack vertically */
+            header.top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1rem 4%;
+            }
+
+            .logo {
+                font-size: 1.7rem;
+            }
+
+            /* Navigation - wrap nicely */
+            .main-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .main-nav a {
+                margin-left: 0;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            /* Main content */
+            main {
+                margin: 80px auto 2rem;
+                padding: 0 4%;
+            }
+
+            /* Typography scaling */
+            h1 {
+                font-size: 1.8rem;
+                margin: 1rem 0 1.2rem;
+            }
+
+            .category {
+                font-size: 0.75rem;
+            }
+
+            .article-meta {
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Featured image */
+            .featured-img {
+                height: 220px;
+                margin: 1.5rem 0;
+                border-radius: 8px;
+            }
+
+            /* Article body */
+            .article-body {
+                font-size: 1rem;
+                line-height: 1.75;
+            }
+
+            .article-body p {
+                font-size: 1rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .article-body h2 {
+                font-size: 1.6rem;
+                margin: 2rem 0 1rem;
+            }
+
+            .article-body h3 {
+                font-size: 1.4rem;
+                margin: 1.8rem 0 0.8rem;
+            }
+
+            .article-body h4 {
+                font-size: 1.25rem;
+                margin: 1.5rem 0 0.8rem;
+            }
+
+            .article-body h5 {
+                font-size: 1.1rem;
+            }
+
+            .article-body h6 {
+                font-size: 1rem;
+            }
+
+            /* Lists */
+            .article-body ul,
+            .article-body ol {
+                padding-left: 1.5rem;
+                margin: 1.2rem 0;
+            }
+
+            .article-body li {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Code blocks */
+            .article-body pre {
+                padding: 1rem;
+                font-size: 0.85rem;
+                overflow-x: auto;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+
+            .article-body code {
+                font-size: 0.9rem;
+                word-break: break-word;
+            }
+
+            /* Tables - make scrollable */
+            .article-body table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                font-size: 0.9rem;
+            }
+
+            .article-body th,
+            .article-body td {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            /* Blockquotes */
+            .article-body blockquote {
+                padding: 1rem 1.2rem;
+                margin: 1.5rem 0;
+            }
+
+            /* FAQ Section */
+            .faq-section {
+                padding: 1.2rem;
+                margin: 2.5rem 0 1.5rem;
+                border-radius: 12px;
+            }
+
+            .faq-section h2 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .faq-question {
+                padding: 1rem 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .faq-answer {
+                font-size: 0.9rem;
+                line-height: 1.65;
+            }
+
+            .faq-item.open .faq-answer {
+                padding: 0 1.2rem 1.2rem;
+            }
+
+            /* Back link */
+            .back-link {
+                margin-top: 2rem;
+                font-size: 0.9rem;
+            }
+
+            /* Footer - single column on mobile */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            footer h3 {
+                margin-bottom: 1rem;
+            }
+
+            footer p {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+
+            /* Back to top button */
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* MOBILE PORTRAIT (max-width: 480px) */
+        @media (max-width: 480px) {
+            header.top {
+                padding: 0.8rem 3%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            main {
+                margin: 70px auto 1.5rem;
+                padding: 0 3%;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .featured-img {
+                height: 180px;
+            }
+
+            .article-body {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            .article-body p {
+                font-size: 0.95rem;
+            }
+
+            .article-body h2 {
+                font-size: 1.4rem;
+            }
+
+            .article-body h3 {
+                font-size: 1.25rem;
+            }
+
+            .article-body h4 {
+                font-size: 1.15rem;
+            }
+
+            .article-body li {
+                font-size: 0.95rem;
+            }
+
+            .article-body pre {
+                padding: 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .article-body code {
+                font-size: 0.85rem;
+            }
+
+            .article-body th,
+            .article-body td {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+
+            .faq-section {
+                padding: 1rem;
+            }
+
+            .faq-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .faq-question {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .faq-answer {
+                font-size: 0.85rem;
+            }
+
+            .faq-item.open .faq-answer {
+                padding: 0 1rem 1rem;
+            }
+
+            footer {
+                padding: 2.5rem 4% 2rem;
+                margin-top: 3rem;
+            }
+
+            .footer-grid {
+                gap: 1.5rem;
+            }
+
+            #backToTop {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* EXTRA SMALL DEVICES (max-width: 360px) */
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .main-nav a {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .featured-img {
+                height: 150px;
+            }
+
+            .article-body h2 {
+                font-size: 1.3rem;
+            }
+
+            .article-body h3 {
+                font-size: 1.15rem;
+            }
+
+            .faq-section h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* FIX FOR HORIZONTAL SCROLL - PREVENTS ALL MESS */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            img,
+            video,
+            iframe,
+            table,
+            pre {
+                max-width: 100%;
+                height: auto;
+            }
+
+            main,
+            footer,
+            .faq-section {
+                overflow-x: hidden;
+            }
+
+            /* Fix code block overflow */
+            pre,
+            .article-body pre {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                overflow-x: auto;
+            }
+
+            /* Fix table overflow */
+            .article-body table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Fix FAQ touch targets */
+            .faq-question {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .faq-question:active {
+                background: #f0f0f0;
+            }
+        }
+
+        /* LARGE DESKTOP (min-width: 1400px) - optional refinement */
+        @media (min-width: 1400px) {
+            main {
+                max-width: 1100px;
+            }
+
+            .footer-grid {
+                max-width: 1400px;
+            }
+        }
+
+        /* FIX DARK OVERLAY & CLICKJACK - ensure body is visible */
+        body {
+            display: block !important;
+        }
+
+        /* Remove cursor:pointer from everything (restore normal behavior) */
+        * {
+            cursor: auto;
+        }
+
+        header.top a,
+        .main-nav a,
+        .faq-question,
+        #backToTop,
+        .back-link {
+            cursor: pointer;
+        }
+
+        /* Improve reading experience on mobile */
+        @media (max-width: 768px) {
+            .article-body {
+                font-size: 1rem;
+            }
+
+            /* Better spacing for nested lists */
+            .article-body li ul,
+            .article-body li ol {
+                margin-top: 0.3rem;
+                margin-bottom: 0.3rem;
+            }
+        }
+
+        /* Ensure loading text is visible */
+        #loading-text {
+            text-align: center;
+            padding: 4rem;
+            font-size: 1.2rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 480px) {
+            #loading-text {
+                padding: 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Fix table border styling */
+        td {
+            border: 1px solid var(--border);
+            padding: 12px;
+        }
+
+        /* Improve image responsiveness */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
 </head>
 
 <body>
 
     <!-- Fixed Navbar -->
     <header class="top">
-        <a href="index.html" class="logo">CORE<span>TECH</span></a>
+        <a href="https://coretech.dpdns.org/" class="logo">CORE<span>TECH</span></a>
         <div class="main-nav">
-            <a href="index.html">Home</a>
+            <a href="https://coretech.dpdns.org/">Home</a>
             <a href="blogs.html">Blogs</a>
             <a href="experiments.html">Experiments</a>
             <a href="about.html">About</a>

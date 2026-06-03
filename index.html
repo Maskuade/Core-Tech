@@ -15,8 +15,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://coretech.dpdns.org/" />
-    <meta name="description"
-        content="
+    <meta name="description" content="
         CoreTech: Master advanced software engineering & AI systems. Explore expert code experiments and shape modern technology now.
         ">
     <title>CoreTech | Where Code Meets Chaos and Childhood Dreams</title>
@@ -278,6 +277,457 @@
             box-shadow: 0 5px 20px rgba(230, 0, 0, 0.4);
             z-index: 1000;
         }
+
+        /* ========================================
+   COMPLETE RESPONSIVE CSS FOR HOME PAGE
+   Simple | Fast | No Mess | Every Device
+   ======================================== */
+
+        /* TABLET & SMALL DESKTOP (max-width: 992px) */
+        @media (max-width: 992px) {
+            header.top {
+                padding: 0.75rem 4%;
+            }
+
+            #searchInput {
+                width: 200px;
+            }
+
+            #searchInput:focus {
+                width: 240px;
+            }
+
+            .featured {
+                padding: 5rem 4% 3rem;
+                gap: 2rem;
+            }
+
+            .featured-content h1 {
+                font-size: 2rem;
+            }
+
+            .featured-img {
+                height: 350px;
+            }
+
+            main {
+                gap: 2rem;
+                padding: 0 4%;
+            }
+
+            .article-img {
+                width: 240px;
+                height: 150px;
+            }
+
+            .article-content h3 {
+                font-size: 1.3rem;
+            }
+
+            .discover-more {
+                padding: 3rem 4%;
+            }
+
+            .discover-more h2 {
+                font-size: 1.8rem;
+            }
+
+            .footer-grid {
+                gap: 2rem;
+            }
+        }
+
+        /* MOBILE LANDSCAPE (max-width: 768px) */
+        @media (max-width: 768px) {
+
+            /* Fix header - stack vertically */
+            header.top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1rem 4%;
+            }
+
+            .logo {
+                font-size: 1.7rem;
+            }
+
+            /* Navigation - wrap nicely */
+            .main-nav {
+                justify-content: center;
+                gap: 0.8rem;
+            }
+
+            .main-nav a {
+                font-size: 0.9rem;
+            }
+
+            /* Search - full width */
+            .search-container {
+                width: 100%;
+            }
+
+            #searchInput {
+                width: 100%;
+                max-width: 100%;
+                padding: 0.65rem 1rem;
+            }
+
+            #searchInput:focus {
+                width: 100%;
+            }
+
+            /* Featured section - stack vertically */
+            .featured {
+                grid-template-columns: 1fr;
+                padding: 5rem 4% 2rem;
+                text-align: center;
+            }
+
+            .featured-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .featured-content p {
+                font-size: 1rem;
+                margin: 1rem 0;
+            }
+
+            .featured-content a {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .featured-img {
+                height: 250px;
+                order: -1;
+            }
+
+            /* Main content - single column */
+            main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 1.5rem auto;
+                padding: 0 4%;
+            }
+
+            /* Section heading */
+            main section>h2 {
+                font-size: 1.4rem !important;
+                margin-bottom: 1.2rem !important;
+            }
+
+            /* Article cards - stack vertically */
+            .article-card {
+                flex-direction: column;
+                gap: 1rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .article-img {
+                width: 100%;
+                height: 200px;
+            }
+
+            .article-content h3 {
+                font-size: 1.25rem;
+            }
+
+            .article-content p {
+                font-size: 0.95rem;
+            }
+
+            .meta {
+                font-size: 0.8rem;
+            }
+
+            .read-more {
+                font-size: 0.9rem;
+            }
+
+            /* Sidebar */
+            aside {
+                margin-top: 0;
+            }
+
+            .sidebar-box {
+                padding: 1.2rem !important;
+            }
+
+            .sidebar-box h3 {
+                font-size: 1.2rem;
+            }
+
+            .sidebar-box p {
+                font-size: 0.9rem;
+                margin: 0.8rem 0 !important;
+            }
+
+            /* Discover More section */
+            .discover-more {
+                padding: 2.5rem 4%;
+            }
+
+            .discover-more h2 {
+                font-size: 1.5rem;
+            }
+
+            .discover-more p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .explore-btn {
+                padding: 0.8rem 2rem !important;
+                font-size: 1rem !important;
+            }
+
+            /* Footer - single column on mobile */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            footer h3 {
+                margin-bottom: 1rem;
+            }
+
+            footer p {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+
+            /* Back to top button */
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* MOBILE PORTRAIT (max-width: 480px) */
+        @media (max-width: 480px) {
+            header.top {
+                padding: 0.8rem 3%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .main-nav {
+                gap: 0.5rem;
+            }
+
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0;
+            }
+
+            .featured {
+                padding: 4.5rem 3% 1.5rem;
+            }
+
+            .featured-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .featured-content p {
+                font-size: 0.9rem;
+            }
+
+            .featured-img {
+                height: 200px;
+            }
+
+            main {
+                padding: 0 3%;
+            }
+
+            .article-img {
+                height: 170px;
+            }
+
+            .article-content h3 {
+                font-size: 1.15rem;
+            }
+
+            .article-content p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .article-category {
+                font-size: 0.7rem !important;
+            }
+
+            .read-more {
+                font-size: 0.85rem;
+            }
+
+            .discover-more {
+                padding: 2rem 3%;
+            }
+
+            .discover-more h2 {
+                font-size: 1.3rem;
+            }
+
+            .discover-more p {
+                font-size: 0.9rem;
+            }
+
+            .explore-btn {
+                padding: 0.7rem 1.5rem !important;
+                font-size: 0.9rem !important;
+            }
+
+            footer {
+                padding: 2.5rem 4% 2rem;
+            }
+
+            .footer-grid {
+                gap: 1.5rem;
+            }
+
+            #backToTop {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* EXTRA SMALL DEVICES (max-width: 360px) */
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .main-nav a {
+                font-size: 0.7rem;
+            }
+
+            .featured-content h1 {
+                font-size: 1.3rem;
+            }
+
+            .article-img {
+                height: 150px;
+            }
+
+            .article-content h3 {
+                font-size: 1rem;
+            }
+
+            .discover-more h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* FIX FOR HORIZONTAL SCROLL - PREVENTS ALL MESS */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            img,
+            video,
+            iframe,
+            table,
+            #searchInput {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .featured,
+            main,
+            .discover-more,
+            footer {
+                overflow-x: hidden;
+            }
+
+            /* Fix button tap highlight on mobile */
+            .explore-btn,
+            .main-nav a,
+            .featured-content a,
+            .read-more {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .explore-btn:active {
+                transform: scale(0.98);
+                transition: 0.1s;
+            }
+
+            /* Fix hover effects on mobile */
+            .explore-btn:hover {
+                transform: none;
+            }
+        }
+
+        /* LARGE DESKTOP (min-width: 1400px) - optional refinement */
+        @media (min-width: 1400px) {
+            main {
+                max-width: 1600px;
+            }
+
+            .footer-grid {
+                max-width: 1400px;
+            }
+        }
+
+        /* FIX DARK OVERLAY & CLICKJACK - ensure body is visible */
+        body {
+            display: block !important;
+        }
+
+        /* Additional fixes for perfect responsive layout */
+        @media (max-width: 768px) {
+
+            /* Fix articles container */
+            .articles {
+                gap: 1.5rem;
+            }
+
+            /* Fix read more links */
+            .read-more {
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
+
+            /* Fix sidebar box spacing */
+            .sidebar-box {
+                margin-top: 0;
+            }
+        }
+
+        /* Fix for featured section button on mobile */
+        @media (max-width: 768px) {
+            .featured-content a {
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Ensure images don't break layout */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Smooth transitions for all interactive elements */
+        .explore-btn,
+        .main-nav a,
+        .read-more,
+        .featured-content a {
+            transition: all 0.3s ease;
+        }
     </style>
     <script type="application/ld+json">
 	{
@@ -301,6 +751,22 @@
 		}
 	}
 	</script>
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
 
 </head>
 
@@ -308,10 +774,10 @@
 
     <!-- Fixed Navbar -->
     <header class="top">
-        <a href="index.html" class="logo">CORE<span>TECH</span></a>
+        <a href="https://coretech.dpdns.org/" class="logo">CORE<span>TECH</span></a>
 
         <div class="main-nav">
-            <a href="index.html">Home</a>
+            <a href="https://coretech.dpdns.org/">Home</a>
             <a href="blogs.html">Blogs</a>
             <a href="experiments.html">Experiments</a>
             <a href="#">News</a>
@@ -346,64 +812,43 @@
                 style="font-size: 1.65rem; margin-bottom: 1.8rem; border-bottom: 3px solid var(--accent); padding-bottom: 0.9rem;">
                 Latest Articles</h2>
             <div class="articles" id="latest-articles">
-            <div class="article-card">
-                    <img src="collab_of_hylo_and_mojo.jpg" alt="Mojo & Hylo Explained: The Future of High-Performance Coding" class="article-img" loading="lazy">
+            <div class="article-card" data-title="Mojo &amp; Hylo Explained: The Future of High-Performance Coding" data-meta-desc="Discover how Mojo and Hylo are reshaping software development. Learn their core features, major differences, and which language fits your next project.">
+                    <img src="collab_of_hylo_and_mojo.webp" alt="Mojo & Hylo Explained: The Future of High-Performance Coding" class="article-img" loading="lazy">
                     <div class="article-content">
                         <span class="article-category" style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">PROGRAMMING LANGUAGES</span>
                         <h3>Mojo &amp; Hylo Explained: The Future of High-Performance Coding</h3>
-                        <p>
-Incoming Programming Languages: -
-
-Outline:
-- Mojo
-
-    
-        Introduction
-    
-    
-        Python Is Easy To Write
-    
-    
-        Speed Problem in Pyth...</p>
+                        <p>Discover how Mojo and Hylo are reshaping software development. Learn their core features, major differences, and which language fits your next project.</p>
                         <div class="meta">CoreTech • June 2026</div>
                         <a href="incoming-programming-languages.html" class="read-more">Read Full Article →</a>
                     </div>
                 </div>
     
-            <div class="article-card">
-                    <img src="complete knowledge about cloud computing.png" alt="Amazing And Complete Knowledge About Cloud Computing" class="article-img" loading="lazy">
+            <div class="article-card" data-title="Amazing And Complete Knowledge About Cloud Computing" data-meta-desc="Master Cloud Computing with this complete guide covering IaaS, PaaS, SaaS, security, virtualization, storage, cloud models, trends, and more.">
+                    <img src="complete knowledge about cloud computing.webp" alt="Amazing And Complete Knowledge About Cloud Computing" class="article-img" loading="lazy">
                     <div class="article-content">
                         <span class="article-category" style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">EMERGING TECHNOLOGY</span>
                         <h3>Amazing And Complete Knowledge About Cloud Computing</h3>
-                        <p>
-Complete Introduction To Cloud Computing: -
-Outline:
-
-    
-        What is cloud computing?
-    
-    
-        When it was introduced?
-    
-    
-        What wa...</p>
+                        <p>Master Cloud Computing with this complete guide covering IaaS, PaaS, SaaS, security, virtualization, storage, cloud models, trends, and more.</p>
                         <div class="meta">CoreTech • June 2026</div>
                         <a href="complete-knowledge-about-cloud-computing.html" class="read-more">Read Full Article →</a>
                     </div>
                 </div>
     
-            <div class="article-card">
-                    <img src="history-of-programming-languages.png" alt="History Of Programming Languages" class="article-img" loading="lazy">
+            <div class="article-card" data-title="History Of Programming Languages" data-meta-desc="A comprehensive comparison of next-gen programming languages Mojo and Hylo">
+                    <img src="history-of-programming-languages.webp" alt="History Of Programming Languages" class="article-img" loading="lazy">
                     <div class="article-content">
-                        <span class="article-category" style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">EMERGING TECHNOLOGY</span>
+                        <span class="article-category" style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">PROGRAMMING LANGUAGES</span>
                         <h3>History Of Programming Languages</h3>
-                        <p> History Of Programming LanguagesOutline:IntroductionDefinitionExplanation With ExampleReason To Introduce ItWho First Discovered the Concept andWhen?Programmin...</p>
+                        <p>A comprehensive comparison of next-gen programming languages Mojo and Hylo</p>
                         <div class="meta">CoreTech • June 2026</div>
                         <a href="history-of-programming-languages.html" class="read-more">Read Full Article →</a>
                     </div>
                 </div>
     
-        </div></div>
+        </div></div></div></div>
+            </div>
+            </div>
+            </div>
             </div>
             </div>
             </div>

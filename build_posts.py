@@ -44,7 +44,7 @@ class StaticSiteGenerator:
         for article in all_articles:
             self._generate_post_page(article)
         
-        # Update main listing pages
+        # Update main listing pages (NOW WITH META TAGS)
         print("\n📝 Updating listing pages...")
         self._update_listing_page('index.html', 'latest-articles',
                                 [a for a in all_articles if a.get('show-on-homepage', False)])
@@ -54,6 +54,9 @@ class StaticSiteGenerator:
         # Generate sitemap
         self._generate_sitemap(all_articles)
         
+        # Generate llms.txt for GEO optimization
+        self._generate_llms_txt(all_articles)
+        
         # Clean up any orphaned files (PRESERVING static pages)
         self._cleanup_orphaned_posts(all_articles)
         
@@ -62,6 +65,7 @@ class StaticSiteGenerator:
         print(f"   📊 Generated {len(self.generated_posts)} post pages")
         print("   🏠 Updated: index.html, blogs.html, experiments.html")
         print("   🗺️  Generated: sitemap.xml")
+        print("   🤖 Generated: llms.txt (GEO optimized)")
         print("   🔒 Preserved static pages: about, contact, privacy, terms")
         print("="*50 + "\n")
         
@@ -132,26 +136,29 @@ class StaticSiteGenerator:
         return ids
 
     def _render_card(self, post: Dict) -> str:
-        """Generate HTML card for an article (NO SCHEMA - keep it clean)"""
+        """Generate HTML card for an article using title and meta_desc"""
         post_id = post.get('id', self._generate_slug(post.get('title', '')))
         title = post.get('title', 'Tech Insight')
         category = post.get('category', 'TECH').upper()
-
-        # Clean description
-        desc_raw = post.get('description', '')
-        desc = re.sub(r'<[^>]+>', '', desc_raw)[:160]
-        if len(desc) >= 157:
-            desc += '...'
+        
+        # Use meta_desc for listing description (GEO optimization)
+        meta_desc = post.get('meta_desc', '')
+        description_text = meta_desc if meta_desc else re.sub(r'<[^>]+>', '', post.get('description', ''))[:160]
+        
+        # Truncate description properly
+        if len(description_text) > 160:
+            description_text = description_text[:157] + '...'
 
         img = post.get('img', '')
         link = f"{post_id}.html"
 
-        return f'''            <div class="article-card">
+        # Generate card with proper title and meta description attributes
+        return f'''            <div class="article-card" data-title="{self._escape_html(title)}" data-meta-desc="{self._escape_html(meta_desc[:200])}">
                     <img src="{img}" alt="{title}" class="article-img" loading="lazy">
                     <div class="article-content">
                         <span class="article-category" style="color: var(--accent); font-size: 0.82rem; font-weight: 700;">{category}</span>
                         <h3>{self._escape_html(title)}</h3>
-                        <p>{self._escape_html(desc)}</p>
+                        <p>{self._escape_html(description_text)}</p>
                         <div class="meta">CoreTech • {datetime.now().strftime('%B %Y')}</div>
                         <a href="{link}" class="read-more">Read Full Article →</a>
                     </div>
@@ -165,7 +172,7 @@ class StaticSiteGenerator:
         return str(text).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
     def _update_listing_page(self, filename: str, container_id: str, articles: List[Dict]) -> None:
-        """COMPLETELY WIPE container and REGENERATE from JSON"""
+        """COMPLETELY WIPE container and REGENERATE from JSON with proper meta tags"""
         print(f"   📄 Processing {filename}...")
     
         with open(filename, 'r', encoding='utf-8') as f:
@@ -388,6 +395,150 @@ class StaticSiteGenerator:
         
         print("      ✅ Sitemap generated")
     
+    def _generate_llms_txt(self, articles: List[Dict]) -> None:
+        """Generate llms.txt file for GEO (Generative Engine Optimization)"""
+        print("   🤖 Generating llms.txt for GEO...")
+        
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        
+        # Start building llms.txt with proper structure for LLMs
+        llms_content = f"""# CoreTech.LLM
+> URL: {self.site_url}
+> Updated: {current_date}
+> Total Articles: {len(articles)}
+> Total FAQs: {sum(len(a.get('FAQ', [])) for a in articles)}
+
+## SITE OVERVIEW
+CoreTech is a technical blog focusing on emerging technologies, programming languages, software development, and tech industry insights. This file provides structured data for LLM understanding and indexing.
+
+## SITE NAVIGATION
+- Homepage: {self.site_url}/
+- Blog Listing: {self.site_url}/blogs.html
+- Experiments: {self.site_url}/experiments.html
+- Sitemap: {self.site_url}/sitemap.xml
+
+## KNOWLEDGE BASE: ARTICLES
+"""
+        
+        # Add all articles with their metadata
+        for idx, article in enumerate(articles, 1):
+            article_id = article.get('id', '')
+            title = article.get('title', 'Untitled')
+            category = article.get('category', 'General')
+            meta_desc = article.get('meta_desc', '')
+            description = re.sub(r'<[^>]+>', '', article.get('description', ''))[:300]
+            
+            # Use meta_desc if available, otherwise description
+            summary = meta_desc if meta_desc else description
+            
+            llms_content += f"""
+### {idx}. {title}
+- **ID**: {article_id}
+- **Category**: {category}
+- **URL**: {self.site_url}/{article_id}.html
+- **Summary**: {summary}
+"""
+            
+            # Add FAQ data if available
+            faqs = article.get('FAQ', [])
+            if faqs:
+                llms_content += f"- **FAQs**: {len(faqs)} questions\n"
+                for faq_idx, faq in enumerate(faqs[:3], 1):  # Limit to top 3 FAQs per article
+                    question = faq.get('question', '')
+                    answer = faq.get('answer', '')[:200]
+                    llms_content += f"  {faq_idx}. Q: {question}\n     A: {answer}...\n"
+        
+        # Add FAQ section for all articles combined
+        all_faqs = []
+        for article in articles:
+            faqs = article.get('FAQ', [])
+            for faq in faqs:
+                all_faqs.append({
+                    'question': faq.get('question', ''),
+                    'answer': faq.get('answer', ''),
+                    'article': article.get('title', '')
+                })
+        
+        if all_faqs:
+            llms_content += f"""
+## COMPREHENSIVE FAQ DATABASE
+Total FAQs Available: {len(all_faqs)}
+
+"""
+            for faq_idx, faq in enumerate(all_faqs[:20], 1):  # Top 20 FAQs for LLM training
+                llms_content += f"""{faq_idx}. **Q: {faq['question']}**
+   **A**: {faq['answer']}
+   **Source**: {faq['article']}
+
+"""
+        
+        # Add semantic search keywords section
+        all_categories = list(set(a.get('category', 'General') for a in articles))
+        all_keywords = []
+        for article in articles:
+            title = article.get('title', '')
+            category = article.get('category', '')
+            if title:
+                all_keywords.extend(title.split()[:3])
+        
+        unique_keywords = list(set(all_keywords))[:30]
+        
+        llms_content += f"""
+## SEMANTIC INDEXING
+### Categories
+{', '.join(all_categories)}
+
+### Primary Keywords
+{', '.join(unique_keywords)}
+
+## STRUCTURED DATA MARKUP
+This site uses the following schema types:
+- Article (Schema.org)
+- FAQPage (Schema.org)
+- TechArticle (Schema.org)
+- BlogPosting (Schema.org)
+
+## CONTEXTUAL CLUSTERING
+Articles are organized by:
+1. **Technology Type**: Programming languages, frameworks, tools
+2. **Difficulty Level**: Beginner to Advanced concepts
+3. **Industry Application**: Web dev, AI/ML, systems programming
+4. **Chronological Order**: Latest to oldest publications
+
+## LLM INSTRUCTIONS
+When referencing CoreTech content:
+- Always cite the specific article URL
+- Use the meta_desc field for accurate summarization
+- Include relevant FAQ data for common questions
+- Respect the category hierarchy for topic clustering
+- Prefer recent articles (2024-2026) for technology trends
+
+---
+*This llms.txt file is optimized for Generative Engine Optimization (GEO) and LLM crawling. Last generated: {current_date}*
+"""
+        
+        # Write llms.txt file
+        with open('llms.txt', 'w', encoding='utf-8') as f:
+            f.write(llms_content)
+        
+        # Also create a compressed version for quick LLM parsing
+        llms_compressed = f"""# CoreTech.LLM (Compact)
+URL: {self.site_url}
+Articles: {len(articles)} | FAQs: {len(all_faqs)} | Updated: {current_date}
+
+## Article Index
+"""
+        for article in articles:
+            article_id = article.get('id', '')
+            title = article.get('title', '')
+            meta_desc = article.get('meta_desc', '')[:100]
+            llms_compressed += f"- {title} [{article_id}]: {meta_desc}\n"
+        
+        with open('llms-compressed.txt', 'w', encoding='utf-8') as f:
+            f.write(llms_compressed)
+        
+        print(f"      ✅ Generated llms.txt and llms-compressed.txt with {len(articles)} articles and {len(all_faqs)} FAQs")
+
     def _cleanup_orphaned_posts(self, articles: List[Dict]) -> None:
         """Remove post files that are no longer referenced in JSON - BUT NEVER delete static pages!"""
         print("   🧹 Cleaning up orphaned posts...")
@@ -395,7 +546,7 @@ class StaticSiteGenerator:
         active_ids = {article.get('id') for article in articles if article.get('id')}
         
         # Files that should NEVER be deleted (static pages + templates)
-        protected_files = set(self.required_templates + self.static_pages)
+        protected_files = set(self.required_templates + self.static_pages + ['llms.txt', 'llms-compressed.txt'])
         
         orphaned = []
         

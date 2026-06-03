@@ -191,15 +191,354 @@
         footer a:hover {
             color: white;
         }
+
+        /* ========================================
+   COMPLETE RESPONSIVE CSS FOR CONTACT PAGE
+   Simple | Fast | No Mess | Every Device
+   ======================================== */
+
+        /* TABLET & SMALL DESKTOP (max-width: 992px) */
+        @media (max-width: 992px) {
+            header.top {
+                padding: 0.75rem 4%;
+            }
+
+            .page-header {
+                padding: 5rem 4% 2.5rem;
+            }
+
+            main {
+                margin: 3rem auto;
+                padding: 0 4%;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .footer-grid {
+                gap: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        /* MOBILE LANDSCAPE (max-width: 768px) */
+        @media (max-width: 768px) {
+
+            /* Fix header - stack vertically */
+            header.top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1rem 4%;
+                gap: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.7rem;
+            }
+
+            /* Navigation - wrap nicely */
+            .main-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .main-nav a {
+                margin-left: 0;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            /* Page header adjustment */
+            .page-header {
+                padding: 6rem 4% 2rem;
+                margin-top: 0;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .page-header p {
+                font-size: 1rem !important;
+            }
+
+            /* Main content */
+            main {
+                margin: 2rem auto;
+                padding: 0 4%;
+            }
+
+            /* Contact form - full width on mobile */
+            .contact-form {
+                padding: 1.5rem;
+                border-radius: 8px;
+            }
+
+            .contact-form h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* Form inputs */
+            input,
+            textarea {
+                padding: 0.8rem;
+                margin-bottom: 1rem;
+                font-size: 0.95rem;
+            }
+
+            button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+                width: 100%;
+            }
+
+            button:hover {
+                transform: none;
+            }
+
+            /* Email text */
+            main p {
+                font-size: 0.95rem;
+                margin-top: 2rem !important;
+            }
+
+            /* Footer - single column on mobile */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            footer h3 {
+                margin-bottom: 1rem;
+            }
+
+            footer p {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+
+            /* Back to top button */
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* MOBILE PORTRAIT (max-width: 480px) */
+        @media (max-width: 480px) {
+            header.top {
+                padding: 0.8rem 3%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .main-nav a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .page-header {
+                padding: 5.5rem 3% 1.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 0 3%;
+                margin: 1.5rem auto;
+            }
+
+            .contact-form {
+                padding: 1.2rem;
+            }
+
+            .contact-form h2 {
+                font-size: 1.3rem;
+            }
+
+            input,
+            textarea {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+
+            button {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            footer {
+                padding: 2.5rem 4% 2rem;
+                margin-top: 3rem;
+            }
+
+            .footer-grid {
+                gap: 1.5rem;
+            }
+
+            #backToTop {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* EXTRA SMALL DEVICES (max-width: 360px) */
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .main-nav a {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .contact-form h2 {
+                font-size: 1.2rem;
+            }
+
+            input,
+            textarea {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* FIX FOR HORIZONTAL SCROLL - PREVENTS ALL MESS */
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            img,
+            video,
+            iframe,
+            table,
+            input,
+            textarea,
+            button {
+                max-width: 100%;
+                height: auto;
+            }
+
+            main,
+            .page-header,
+            footer,
+            .contact-form {
+                overflow-x: hidden;
+            }
+
+            /* Fix form elements on mobile */
+            .contact-form {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            input,
+            textarea,
+            button {
+                box-sizing: border-box;
+                width: 100%;
+            }
+        }
+
+        /* LARGE DESKTOP (min-width: 1400px) - optional refinement */
+        @media (min-width: 1400px) {
+            main {
+                max-width: 900px;
+            }
+
+            .footer-grid {
+                max-width: 1400px;
+            }
+        }
+
+        /* FIX DARK OVERLAY & CLICKJACK - ensure body is visible */
+        body {
+            display: block !important;
+        }
+
+        /* Additional fix for header flex wrap on very small screens */
+        @media (max-width: 550px) {
+            header.top {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.4rem;
+            }
+
+            .main-nav a {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.5rem;
+            }
+        }
+
+        /* Fix for button tap highlight on mobile */
+        @media (max-width: 768px) {
+            button {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            button:active {
+                transform: scale(0.98);
+                transition: 0.1s;
+            }
+        }
     </style>
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+
+    <style id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
 </head>
 
 <body>
 
     <header class="top">
-        <a href="index.html" class="logo">CORE<span>TECH</span></a>
+        <a href="https://coretech.dpdns.org/" class="logo">CORE<span>TECH</span></a>
         <div class="main-nav">
-            <a href="index.html">Home</a>
+            <a href="https://coretech.dpdns.org/">Home</a>
             <a href="blogs.html">Blogs</a>
             <a href="experiments.html">Experiments</a>
             <a href="about.html">About</a>
